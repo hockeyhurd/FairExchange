@@ -1,5 +1,10 @@
 package com.hockeyhurd.mod;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+import com.hockeyhurd.creativetab.MyCreativeTab;
+import com.hockeyhurd.item.ItemAmuletTrade;
 import com.hockeyhurd.math.TimeLapse;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.Reference;
@@ -25,6 +30,10 @@ public class FairExchangeMain {
 	public static final String assetDir = Reference.MOD_NAME.toLowerCase() + ":";
 	public static final String modID = Reference.MOD_NAME;
 	
+	public static Item amuletTrade;
+	
+	public static CreativeTabs myCreativeTab = new MyCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		lh = new LogHelper(Reference.class);
@@ -40,7 +49,15 @@ public class FairExchangeMain {
 		lh.info("Init started");
 		TimeLapse tl = new TimeLapse();
 		
+		loadObj();
+		proxy.init();
+		proxy.registerRenderInformation();
+		
 		lh.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+	}
+	
+	private void loadObj() {
+		amuletTrade = new ItemAmuletTrade("AmuletTrade", assetDir);
 	}
 	
 	@EventHandler
