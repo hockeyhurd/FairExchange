@@ -1,15 +1,15 @@
 package com.hockeyhurd.creativetab;
 
+import net.minecraft.item.Item;
+
 import com.hockeyhurd.mod.FairExchangeMain;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MyCreativeTab extends AbstractCreativeTab {
+public class FairExchangeCreativeTab extends AbstractCreativeTab {
 
-	public MyCreativeTab(int par1, String par2) {
+	public FairExchangeCreativeTab(int par1, String par2) {
 		super(par1, par2);
 	}
 	

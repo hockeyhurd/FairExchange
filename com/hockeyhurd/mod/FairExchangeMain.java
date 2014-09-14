@@ -3,7 +3,7 @@ package com.hockeyhurd.mod;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import com.hockeyhurd.creativetab.MyCreativeTab;
+import com.hockeyhurd.creativetab.FairExchangeCreativeTab;
 import com.hockeyhurd.item.ItemAmuletTrade;
 import com.hockeyhurd.math.TimeLapse;
 import com.hockeyhurd.util.LogHelper;
@@ -32,7 +32,7 @@ public class FairExchangeMain {
 	
 	public static Item amuletTrade;
 	
-	public static CreativeTabs myCreativeTab = new MyCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
+	public static CreativeTabs myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
