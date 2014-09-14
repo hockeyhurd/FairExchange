@@ -21,31 +21,34 @@ public class FairExchangeMain {
 	@Instance(Reference.MOD_NAME)
 	public static FairExchangeMain instance;
 	
+	public static LogHelper lh;
 	public static final String assetDir = Reference.MOD_NAME.toLowerCase() + ":";
 	public static final String modID = Reference.MOD_NAME;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		LogHelper.info("Pre-init started, looking for config info!");
+		lh = new LogHelper(Reference.class);
+		
+		lh.info("Pre-init started, looking for config info!");
 		TimeLapse tl = new TimeLapse();
 		
-		LogHelper.info("Pre-init finished succesfully after", tl.getEffectiveTimeSince(), "ms!");
+		lh.info("Pre-init finished succesfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		LogHelper.info("Init started");
+		lh.info("Init started");
 		TimeLapse tl = new TimeLapse();
 		
-		LogHelper.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+		lh.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		LogHelper.info("Post-Init started");
+		lh.info("Post-Init started");
 		TimeLapse tl = new TimeLapse();
 		
-		LogHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+		lh.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
 	public FairExchangeMain() {
