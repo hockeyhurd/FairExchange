@@ -1,12 +1,12 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.fairexchange;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+import com.hockeyhurd.api.math.TimeLapse;
+import com.hockeyhurd.api.util.LogHelper;
 import com.hockeyhurd.creativetab.FairExchangeCreativeTab;
 import com.hockeyhurd.item.ItemAmuletTrade;
-import com.hockeyhurd.math.TimeLapse;
-import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.Reference;
 
 import cpw.mods.fml.common.Mod;
@@ -20,7 +20,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:HCoreLib")
 public class FairExchangeMain {
 
-	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
+	@SidedProxy(clientSide = "com.hockeyhurd.fairexchange.ClientProxy", serverSide = "com.hockeyhurd.fairexchange.CommonProxy")
 	public static CommonProxy proxy;
 	
 	@Instance(Reference.MOD_NAME)

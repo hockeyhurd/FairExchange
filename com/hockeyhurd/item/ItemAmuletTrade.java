@@ -1,8 +1,10 @@
 package com.hockeyhurd.item;
 
-import com.hockeyhurd.mod.FairExchangeMain;
-
 import net.minecraft.item.ItemStack;
+
+import com.hockeyhurd.api.item.AbstractItemMetalic;
+import com.hockeyhurd.fairexchange.FairExchangeMain;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

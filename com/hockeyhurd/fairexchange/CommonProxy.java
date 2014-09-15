@@ -1,4 +1,4 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.fairexchange;
 
 import java.util.HashMap;
 

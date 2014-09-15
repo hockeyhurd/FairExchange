@@ -2,7 +2,8 @@ package com.hockeyhurd.creativetab;
 
 import net.minecraft.item.Item;
 
-import com.hockeyhurd.mod.FairExchangeMain;
+import com.hockeyhurd.api.creativetab.AbstractCreativeTab;
+import com.hockeyhurd.fairexchange.FairExchangeMain;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

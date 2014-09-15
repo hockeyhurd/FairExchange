@@ -1,5 +1,7 @@
 package com.hockeyhurd.util;
 
+import com.hockeyhurd.api.util.AbstractReference;
+
 public class Reference extends AbstractReference {
 
 	/** Current build number. */
