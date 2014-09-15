@@ -1,4 +1,4 @@
-package com.hockeyhurd.fairexchange;
+package com.hockeyhurd.fairexchange.mod;
 
 public class ClientProxy extends CommonProxy {
 

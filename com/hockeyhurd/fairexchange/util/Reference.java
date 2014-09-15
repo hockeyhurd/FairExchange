@@ -1,11 +1,11 @@
-package com.hockeyhurd.util;
+package com.hockeyhurd.fairexchange.util;
 
 import com.hockeyhurd.api.util.AbstractReference;
 
 public class Reference extends AbstractReference {
 
 	/** Current build number. */
-	public static final short BUILD = 1;
+	public static final short BUILD = 2;
 	
 	/** Current version with included build number. */
 	public static final String VERSION = "v1.1." + BUILD;
