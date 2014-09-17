@@ -40,6 +40,15 @@ public class CraftingManager {
 		addRecipe(new ShapedOreRecipe(new ItemStack(Items.gold_ingot, 1), new Object[] {
 			"xxx", "xxx", "yxx", 'x', "ingotIron", 'y', AMULET_STACK 
 		}));
+		
+		addRecipe(new ShapedOreRecipe(new ItemStack(Items.redstone, 2), new Object[] {
+			"yx ", "x  ", 'x', "coal", 'y', AMULET_STACK
+		}));
+		
+		addRecipe(new ShapedOreRecipe(new ItemStack(Items.coal, 2), new Object[] {
+			"yx", 'x', Items.redstone, 'y', AMULET_STACK
+		}));
+		
 	}
 	
 	private static void addRecipe(ShapedOreRecipe rec) {

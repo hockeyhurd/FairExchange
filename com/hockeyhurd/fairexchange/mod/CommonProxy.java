@@ -2,6 +2,11 @@ package com.hockeyhurd.fairexchange.mod;
 
 import java.util.HashMap;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
 import com.hockeyhurd.fairexchange.handler.CraftingEventHandler;
 import com.hockeyhurd.fairexchange.manager.CraftingManager;
 
@@ -23,7 +28,7 @@ public class CommonProxy {
 		registerEventHandlers();
 		// registerBlocks();
 		registerItems();
-		// addOreDict();
+		addOreDict();
 		// registerWorldgen();
 		// addFuelRegister();
 		addCraftingRecipes();
@@ -41,6 +46,11 @@ public class CommonProxy {
 	
 	protected void registerItems() {
 		GameRegistry.registerItem(FairExchangeMain.amuletTrade, "AmuletTrade");
+	}
+	
+	protected void addOreDict() {
+		OreDictionary.registerOre("coal", Items.coal);
+		OreDictionary.registerOre("coal", new ItemStack(Items.coal, 1, 1));
 	}
 	
 	protected void addCraftingRecipes() {
