@@ -1,11 +1,12 @@
 package com.hockeyhurd.fairexchange.manager;
 
-import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CraftingManager {
@@ -16,6 +17,10 @@ public class CraftingManager {
 	}
 	
 	public static void init() {
+		addRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), new Object[] {
+			"xyx", "yzy", "xyx", 'x', "gemDiamond", 'y', "gemEmerald", 'z', "ingotGold"
+		}));
+		
 		addRecipe(new ShapedOreRecipe(new ItemStack(Items.diamond, 1), new Object[] {
 			"xx ", "xx ", "y  ", 'x', "ingotGold", 'y', AMULET_STACK
 		}));
