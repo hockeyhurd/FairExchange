@@ -17,7 +17,7 @@ public class OreDictionaryRegisterHandler {
 		if (event.Ore != null && (event.Name.contains("ingot") || event.Name.contains("ore") || event.Name.contains("gem") || event.Name.contains("quartz"))) {
 			if (!CraftingManager.oreList.contains(event.Ore)) {
 				CraftingManager.oreList.add(event.Ore);
-				CraftingManager.addRecipe();
+				CraftingManager.addRecipe(event.Ore);
 				FairExchangeMain.lh.info("Registered:", event.Name);
 			}
 		}

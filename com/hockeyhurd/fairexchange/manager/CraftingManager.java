@@ -63,12 +63,29 @@ public class CraftingManager {
 		if (!oreList.contains(rec.getRecipeOutput())) oreList.add(rec.getRecipeOutput());
 	}
 	
-	public static void addRecipe() {
-		if (oreList.contains(OreDictParser.getFromDict("ingotTin")) && oreList.contains(OreDictParser.getFromDict("ingotCopper"))) {
-			addRecipe(new ShapedOreRecipe(OreDictParser.getFromDict("ingotTin"), new Object[] {
+	public static void addRecipe(ItemStack stack) {
+		if (oreList.contains(getByName("ingotTin")) && oreList.contains(getByName("ingotCopper"))) {
+			addRecipe(new ShapedOreRecipe(getByName("ingotTin"), new Object[] {
 				"xx ", "xy ", 'x', "ingotCopper", AMULET_STACK
 			}));
 		}
+	}
+	
+	private static ItemStack getByName(String name) {
+		return getByName(name, 1);
+	}
+	
+	private static ItemStack getByName(String name, int size) {
+		ItemStack stack = null;
+		for (ItemStack current : oreList) {
+			if (current.getItem().getUnlocalizedName() != null && current.getItem().getUnlocalizedName().equals(name)) {
+				stack = current;
+				stack.stackSize = size;
+				break;
+			}
+		}
+		
+		return stack;
 	}
 
 }
