@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import com.hockeyhurd.api.util.OreDictParser;
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -56,6 +55,8 @@ public class CraftingManager {
 			"yx", 'x', Items.redstone, 'y', AMULET_STACK
 		}));
 		
+		// if (ModsLoadedHelper.tcLoaded) addTinkersRecipes();
+		
 	}
 	
 	private static void addRecipe(ShapedOreRecipe rec) {
@@ -70,6 +71,12 @@ public class CraftingManager {
 			}));
 		}
 	}
+	
+	/*private static final void addTinkersRecipes() {
+		addRecipe(new ShapedOreRecipe(new ItemStack(TConstructRegistry.getItem("ingotTin"), 1), new Object[] {
+			"xx ", "xy ", 'x', TConstructRegistry.getItem("ingotCopper"), AMULET_STACK
+		}));
+	}*/
 	
 	private static ItemStack getByName(String name) {
 		return getByName(name, 1);

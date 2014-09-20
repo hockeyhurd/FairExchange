@@ -1,5 +1,8 @@
 package com.hockeyhurd.fairexchange.mod;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -7,6 +10,7 @@ import com.hockeyhurd.api.math.TimeLapse;
 import com.hockeyhurd.api.util.LogHelper;
 import com.hockeyhurd.fairexchange.creativetab.FairExchangeCreativeTab;
 import com.hockeyhurd.fairexchange.item.ItemAmuletTrade;
+import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
 import com.hockeyhurd.fairexchange.util.Reference;
 
 import cpw.mods.fml.common.Mod;
@@ -36,18 +40,29 @@ public class FairExchangeMain {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		TimeLapse tl = new TimeLapse();
 		lh = new LogHelper(Reference.class);
 		
 		lh.info("Pre-init started, looking for config info!");
-		TimeLapse tl = new TimeLapse();
+		
+		lh.info("Detecting other soft-dependent mods.");
+		ModsLoadedHelper.init();
+		
+		Iterator iter = ModsLoadedHelper.getEntries().iterator();
+		do {
+			Entry<String, Boolean> current = (Entry<String, Boolean>) iter.next();
+			if (current.getValue()) lh.info(current.getKey(), "detected! Wrapping into mod!");
+			else lh.warn(current.getKey(), "not detected!");
+		}
+		while (iter.hasNext());
 		
 		lh.info("Pre-init finished succesfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		lh.info("Init started");
 		TimeLapse tl = new TimeLapse();
+		lh.info("Init started");
 		
 		loadObj();
 		proxy.init();
@@ -62,8 +77,12 @@ public class FairExchangeMain {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		lh.info("Post-Init started");
 		TimeLapse tl = new TimeLapse();
+		lh.info("Post-Init started");
+		
+		proxy.registerUpdateHandler();
+		if (!proxy.updateFlag) lh.warn("Found an update!");
+		else lh.info("Everything is up to date!");
 		
 		lh.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
