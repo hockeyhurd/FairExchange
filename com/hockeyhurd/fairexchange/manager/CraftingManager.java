@@ -5,8 +5,10 @@ import java.util.List;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
 
@@ -23,50 +25,75 @@ public class CraftingManager {
 	public static void init() {
 		oreList = new ArrayList<ItemStack>();
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), new Object[] {
+		addShapedRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), new Object[] {
 			"xyx", "yzy", "xyx", 'x', "gemDiamond", 'y', "gemEmerald", 'z', "ingotGold"
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.diamond, 1), new Object[] {
-			"xx ", "xx ", "y  ", 'x', "ingotGold", 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.diamond, 1), new Object[] {
+			"ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.emerald, 1), new Object[] {
-			"xxx", "xxx", "yxx", 'x', "ingotGold", 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.emerald, 1), new Object[] {
+			"ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.gold_ingot, 4), new Object[] {
-			"xy", 'x', "gemDiamond", 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 4), new Object[] {
+			"gemDiamond", AMULET_STACK
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.gold_ingot, 8), new Object[] {
-			"xy", 'x', "gemEmerald", 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 8), new Object[] {
+			"gemEmerald", AMULET_STACK
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.gold_ingot, 1), new Object[] {
-			"xxx", "xxx", "yxx", 'x', "ingotIron", 'y', AMULET_STACK 
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 1), new Object[] {
+			"ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", AMULET_STACK 
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.redstone, 2), new Object[] {
-			"yx ", "x  ", 'x', "coal", 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 8), new Object[] {
+			Items.gold_ingot, AMULET_STACK 
 		}));
 		
-		addRecipe(new ShapedOreRecipe(new ItemStack(Items.coal, 2), new Object[] {
-			"yx", 'x', Items.redstone, 'y', AMULET_STACK
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.ender_pearl, 1), new Object[] {
+			"ingotIron", "ingotIron", "ingotIron", "ingotIron", AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 4), new Object[] {
+			Items.ender_pearl, AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.quartz, 3), new Object[] {
+			"ingotIron", "ingotIron", "ingotIron", AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 3), new Object[] {
+			Items.quartz, Items.quartz, Items.quartz, AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.redstone, 2), new Object[] {
+			"coal", "coal", AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.coal, 2), new Object[] {
+			Items.redstone, AMULET_STACK
 		}));
 		
 		// if (ModsLoadedHelper.tcLoaded) addTinkersRecipes();
 		
 	}
 	
-	private static void addRecipe(ShapedOreRecipe rec) {
+	private static void addShapedRecipe(ShapedOreRecipe rec) {
+		GameRegistry.addRecipe(rec);
+		if (!oreList.contains(rec.getRecipeOutput())) oreList.add(rec.getRecipeOutput());
+	}
+	
+	private static void addShapelessRecipe(ShapelessOreRecipe rec) {
 		GameRegistry.addRecipe(rec);
 		if (!oreList.contains(rec.getRecipeOutput())) oreList.add(rec.getRecipeOutput());
 	}
 	
 	public static void addRecipe(ItemStack stack) {
 		if (oreList.contains(getByName("ingotTin")) && oreList.contains(getByName("ingotCopper"))) {
-			addRecipe(new ShapedOreRecipe(getByName("ingotTin"), new Object[] {
+			addShapedRecipe(new ShapedOreRecipe(getByName("ingotTin"), new Object[] {
 				"xx ", "xy ", 'x', "ingotCopper", AMULET_STACK
 			}));
 		}

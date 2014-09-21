@@ -80,7 +80,7 @@ public class FairExchangeMain {
 		TimeLapse tl = new TimeLapse();
 		lh.info("Post-Init started");
 		
-		proxy.registerUpdateHandler();
+		// proxy.registerUpdateHandler();
 		if (!proxy.updateFlag) lh.warn("Found an update!");
 		else lh.info("Everything is up to date!");
 		
