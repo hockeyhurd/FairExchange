@@ -5,12 +5,13 @@ import java.util.List;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import tconstruct.library.TConstructRegistry;
 
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
+import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -77,7 +78,7 @@ public class CraftingManager {
 			Items.redstone, AMULET_STACK
 		}));
 		
-		// if (ModsLoadedHelper.tcLoaded) addTinkersRecipes();
+		if (ModsLoadedHelper.tcLoaded) addTinkersRecipes();
 		
 	}
 	
@@ -99,11 +100,37 @@ public class CraftingManager {
 		}
 	}
 	
-	/*private static final void addTinkersRecipes() {
-		addRecipe(new ShapedOreRecipe(new ItemStack(TConstructRegistry.getItem("ingotTin"), 1), new Object[] {
-			"xx ", "xy ", 'x', TConstructRegistry.getItem("ingotCopper"), AMULET_STACK
+	private static final void addTinkersRecipes() {
+		final ItemStack tin = getItemStackFromTC("ingotTin");
+		final ItemStack copper = getItemStackFromTC("ingotCopper");
+		final ItemStack aluminium = getItemStackFromTC("ingotAluminum");
+		
+		addShapelessRecipe(new ShapelessOreRecipe(tin, new Object[] {
+				copper, copper, copper, AMULET_STACK
 		}));
-	}*/
+		
+		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotCopper", 3), new Object[] {
+			tin, AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(aluminium, new Object[] {
+				tin, tin, tin, AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotTin", 3), new Object[] {
+			aluminium, AMULET_STACK
+		}));
+	}
+	
+	private static ItemStack getItemStackFromTC(String name) {
+		return TConstructRegistry.getItemStack(name);
+	}
+	
+	private static ItemStack getItemStackFromTC(String name, int size) {
+		ItemStack stack = getItemStackFromTC(name);
+		stack.stackSize = size > 0 ? size : 1;
+		return stack;
+	}
 	
 	private static ItemStack getByName(String name) {
 		return getByName(name, 1);
