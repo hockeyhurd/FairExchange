@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import com.hockeyhurd.api.math.TimeLapse;
 import com.hockeyhurd.api.util.LogHelper;
 import com.hockeyhurd.fairexchange.creativetab.FairExchangeCreativeTab;
+import com.hockeyhurd.fairexchange.handler.ConfigHandler;
 import com.hockeyhurd.fairexchange.item.ItemAmuletTrade;
 import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
 import com.hockeyhurd.fairexchange.util.Reference;
@@ -36,6 +37,7 @@ public class FairExchangeMain {
 	
 	public static Item amuletTrade;
 	
+	public static ConfigHandler configHandler;
 	public static CreativeTabs myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
 	
 	@EventHandler
@@ -44,6 +46,9 @@ public class FairExchangeMain {
 		lh = new LogHelper(Reference.class);
 		
 		lh.info("Pre-init started, looking for config info!");
+		configHandler = new ConfigHandler(event, Reference.class);
+		configHandler.handleConfiguration();
+		lh.info("Config loaded successfully! Patching mod now!");
 		
 		lh.info("Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
@@ -80,9 +85,12 @@ public class FairExchangeMain {
 		TimeLapse tl = new TimeLapse();
 		lh.info("Post-Init started");
 		
-		// proxy.registerUpdateHandler();
-		if (!proxy.updateFlag) lh.warn("Found an update!");
-		else lh.info("Everything is up to date!");
+		if (configHandler.allowUpdating()) {
+			proxy.registerUpdateHandler();
+			if (!proxy.updateFlag) lh.warn("Found an update!");
+			else lh.info("Everything is up to date!");
+		}
+		else lh.warn("Skipping checking for updates. WARNING: bugs may exist!");
 		
 		lh.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}

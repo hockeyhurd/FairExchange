@@ -1,5 +1,6 @@
 package com.hockeyhurd.fairexchange.mod;
 
+
 public class ClientProxy extends CommonProxy {
 
 	public ClientProxy() {

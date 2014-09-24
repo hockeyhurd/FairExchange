@@ -19,12 +19,12 @@ public class ItemAmuletTrade extends AbstractItemMetalic {
 		this.setCreativeTab(FairExchangeMain.myCreativeTab);
 		this.setMaxDamage(1000);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack) {
 		return true;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
 		list.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.GRAY + "Allows for trading resources");
