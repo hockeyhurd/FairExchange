@@ -17,7 +17,7 @@ public class ItemAmuletTrade extends AbstractItemMetalic {
 	public ItemAmuletTrade(String name, String assetDir) {
 		super(name, assetDir);
 		this.setCreativeTab(FairExchangeMain.myCreativeTab);
-		this.setMaxDamage(1000);
+		this.setMaxDamage(2000);
 	}
 
 	@SideOnly(Side.CLIENT)

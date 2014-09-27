@@ -35,7 +35,7 @@ public class CraftingManager {
 		}
 		
 		addShapedRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), new Object[] {
-			"xyx", "yzy", "xyx", 'x', "gemDiamond", 'y', "gemEmerald", 'z', "ingotGold"
+			" y ", "yzy", " y ", 'y', "gemEmerald", 'z', "ingotGold"
 		}));
 		
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.diamond, 1), new Object[] {
@@ -44,6 +44,10 @@ public class CraftingManager {
 		
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.emerald, 1), new Object[] {
 			"ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK
+		}));
+		
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.nether_star, 1), new Object[] {
+			"gemEmerald", "gemEmerald", "gemEmerald", "gemEmerald", "gemEmerald", AMULET_STACK
 		}));
 		
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 4), new Object[] {
@@ -134,7 +138,7 @@ public class CraftingManager {
 			aluminium, AMULET_STACK
 		}));
 		
-		addShapelessRecipe(new ShapelessOreRecipe(bronze, new Object[] {
+		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotBronze", 4), new Object[] {
 			copper, copper, copper, tin, AMULET_STACK
 		}));
 		
