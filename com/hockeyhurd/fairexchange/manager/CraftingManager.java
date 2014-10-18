@@ -49,7 +49,7 @@ public class CraftingManager {
 		}));
 
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.nether_star, 1), new Object[] {
-				"gemEmerald", "gemEmerald", "gemEmerald", "gemEmerald", "gemEmerald", AMULET_STACK
+				"blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", AMULET_STACK
 		}));
 
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 4), new Object[] {
@@ -76,12 +76,12 @@ public class CraftingManager {
 				Items.ender_pearl, AMULET_STACK
 		}));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.quartz, 3), new Object[] {
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.quartz, 5), new Object[] {
 				"ingotIron", "ingotIron", "ingotIron", AMULET_STACK
 		}));
 
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 3), new Object[] {
-				Items.quartz, Items.quartz, Items.quartz, AMULET_STACK
+				Items.quartz, Items.quartz, Items.quartz, Items.quartz, Items.quartz, AMULET_STACK
 		}));
 
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.redstone, 2), new Object[] {
@@ -96,11 +96,12 @@ public class CraftingManager {
 				AMULET_STACK, "ingotIron", Blocks.redstone_block
 		}));
 
+
+		if (ModsLoadedHelper.tcLoaded) TiCRecipeIntegration.ticInit();
+		if (ModsLoadedHelper.ic2Loaded) IC2RecipeIntegration.ic2Init();
+
+		// Add dyes last, as they are the most spammy.
 		addDyes();
-
-		if (ModsLoadedHelper.tcLoaded) addTinkersRecipes();
-		if (ModsLoadedHelper.ic2Loaded) addIC2Recipes();
-
 	}
 
 	private static void addShapedRecipe(ShapedOreRecipe rec) {
@@ -119,87 +120,6 @@ public class CraftingManager {
 					"xx ", "xy ", 'x', "ingotCopper", AMULET_STACK
 			}));
 		}
-	}
-
-	private static final void addIC2Recipes() {
-		final ItemStack tin = getItemStackFromIC2("ingotTin");
-		final ItemStack copper = getItemStackFromIC2("ingotCopper");
-		final ItemStack bronze = getItemStackFromIC2("ingotBronze");
-		
-		addShapelessRecipe(new ShapelessOreRecipe(tin, new Object[] {
-				copper, copper, copper, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("ingotCopper", 3), new Object[] {
-				tin, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("ingotBronze", 4), new Object[] {
-				copper, copper, copper, tin, AMULET_STACK
-		}));
-	}
-
-	private static final void addTinkersRecipes() {
-		final ItemStack tin = getItemStackFromTC("ingotTin");
-		final ItemStack copper = getItemStackFromTC("ingotCopper");
-		final ItemStack aluminium = getItemStackFromTC("ingotAluminum");
-		final ItemStack bronze = getItemStackFromTC("ingotBronze");
-		final ItemStack alumite = getItemStackFromTC("ingotAlumite");
-		final ItemStack cobalt = getItemStackFromTC("ingotCobalt");
-		final ItemStack ardite = getItemStackFromTC("ingotArdite");
-		final ItemStack manyullyn = getItemStackFromTC("ingotManyullyn");
-
-		addShapelessRecipe(new ShapelessOreRecipe(tin, new Object[] {
-				copper, copper, copper, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotCopper", 3), new Object[] {
-				tin, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(aluminium, new Object[] {
-				tin, tin, tin, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotTin", 3), new Object[] {
-				aluminium, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotBronze", 4), new Object[] {
-				copper, copper, copper, tin, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(manyullyn, new Object[] {
-				cobalt, cobalt, ardite, ardite, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(ardite, new Object[] {
-				alumite, alumite, alumite, AMULET_STACK
-		}));
-
-		addShapelessRecipe(new ShapelessOreRecipe(cobalt, new Object[] {
-				ardite, ardite, ardite, AMULET_STACK
-		}));
-	}
-
-	private static ItemStack getItemStackFromTC(String name) {
-		return TConstructRegistry.getItemStack(name);
-	}
-
-	private static ItemStack getItemStackFromTC(String name, int size) {
-		ItemStack stack = getItemStackFromTC(name);
-		stack.stackSize = size > 0 ? size : 1;
-		return stack;
-	}
-
-	private static ItemStack getItemStackFromIC2(String name) {
-		return IC2Items.getItem(name);
-	}
-
-	private static ItemStack getItemStackFromIC2(String name, int size) {
-		ItemStack stack = getItemStackFromIC2(name);
-		stack.stackSize = size > 0 ? size : 1;
-		return stack;
 	}
 
 	private static ItemStack getByName(String name) {
@@ -248,6 +168,112 @@ public class CraftingManager {
 		if (++index >= dyes.length) index = 0;
 		ItemStack stack = getDyeByIndex(index, size);
 		return stack;
+	}
+
+	/*private static class AERecipeIntegration {
+		private static final ItemStack quartzCrystal = null;
+		
+		private AERecipeIntegration() {
+		}
+	}*/
+	
+	private static class IC2RecipeIntegration {
+		private IC2RecipeIntegration() {
+		}
+
+		private static ItemStack getItemStackFromIC2(String name) {
+			return IC2Items.getItem(name);
+		}
+
+		private static ItemStack getItemStackFromIC2(String name, int size) {
+			ItemStack stack = getItemStackFromIC2(name);
+			stack.stackSize = size > 0 ? size : 1;
+			return stack;
+		}
+
+		private static final void addIC2Recipes() {
+			final ItemStack tin = getItemStackFromIC2("tinIngot");
+			final ItemStack copper = getItemStackFromIC2("copperIngot");
+			final ItemStack bronze = getItemStackFromIC2("bronzeIngot");
+
+			addShapelessRecipe(new ShapelessOreRecipe(tin, new Object[] {
+					copper, copper, copper, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("copperIngot", 3), new Object[] {
+					tin, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("bronzeIngot", 4), new Object[] {
+					copper, copper, copper, tin, AMULET_STACK
+			}));
+		}
+
+		static final void ic2Init() {
+			addIC2Recipes();
+		}
+	}
+
+	private static class TiCRecipeIntegration {
+		private TiCRecipeIntegration() {
+		}
+
+		private static final void addTinkersRecipes() {
+			final ItemStack tin = getItemStackFromTC("ingotTin");
+			final ItemStack copper = getItemStackFromTC("ingotCopper");
+			final ItemStack aluminium = getItemStackFromTC("ingotAluminum");
+			final ItemStack bronze = getItemStackFromTC("ingotBronze");
+			final ItemStack alumite = getItemStackFromTC("ingotAlumite");
+			final ItemStack cobalt = getItemStackFromTC("ingotCobalt");
+			final ItemStack ardite = getItemStackFromTC("ingotArdite");
+			final ItemStack manyullyn = getItemStackFromTC("ingotManyullyn");
+
+			addShapelessRecipe(new ShapelessOreRecipe(tin, new Object[] {
+					copper, copper, copper, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotCopper", 3), new Object[] {
+					tin, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(aluminium, new Object[] {
+					tin, tin, tin, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotTin", 3), new Object[] {
+					aluminium, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotBronze", 4), new Object[] {
+					copper, copper, copper, tin, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(manyullyn, new Object[] {
+					cobalt, cobalt, ardite, ardite, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(ardite, new Object[] {
+					alumite, alumite, alumite, AMULET_STACK
+			}));
+
+			addShapelessRecipe(new ShapelessOreRecipe(cobalt, new Object[] {
+					ardite, ardite, ardite, AMULET_STACK
+			}));
+		}
+
+		private static ItemStack getItemStackFromTC(String name) {
+			return TConstructRegistry.getItemStack(name);
+		}
+
+		private static ItemStack getItemStackFromTC(String name, int size) {
+			ItemStack stack = getItemStackFromTC(name);
+			stack.stackSize = size > 0 ? size : 1;
+			return stack;
+		}
+
+		static final void ticInit() {
+			addTinkersRecipes();
+		}
 	}
 
 }
