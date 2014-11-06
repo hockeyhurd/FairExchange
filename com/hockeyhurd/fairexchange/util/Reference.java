@@ -5,7 +5,7 @@ import com.hockeyhurd.api.util.AbstractReference;
 public class Reference extends AbstractReference {
 
 	/** Current build number. */
-	public static final short BUILD = 10;
+	public static final short BUILD = 11;
 	
 	/** Current version with included build number. */
 	public static final String VERSION = "v1.1." + BUILD;
@@ -14,7 +14,8 @@ public class Reference extends AbstractReference {
 	public static final String MOD_NAME = "FairExchange";
 	
 	/** Not required but is available. NOTE: if not using it, set to null! */
-	public static final String MOD_URL = "http://75.68.113.97:8080/downloads/" + MOD_NAME.toLowerCase() + "/versions/FairExchange-1.1.";;
+	// public static final String MOD_URL = "http://75.68.113.97:8080/downloads/" + MOD_NAME.toLowerCase() + "/versions/FairExchange-1.1.";
+	public static final String MOD_URL = "https://dl.dropboxusercontent.com/u/276611945/Minecraft/mods/" + MOD_NAME.toLowerCase() + "/versions/FairExchange-1.1.";
 	
 	/**
 	 * To use this class referencing, simple extend this class with your own and plug-in your own values.
