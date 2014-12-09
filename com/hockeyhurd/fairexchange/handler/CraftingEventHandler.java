@@ -18,7 +18,7 @@ public class CraftingEventHandler {
 		for (int i = 0; i < event.craftMatrix.getSizeInventory(); i++) {
 			if (event.craftMatrix.getStackInSlot(i) != null) {
 				ItemStack stack = event.craftMatrix.getStackInSlot(i);
-				if (stack.getItem() != null && stack.getItem() == FairExchangeMain.amuletTrade) {
+				if (stack.getItem() != null && stack.getItem() == FairExchangeMain.amuletTrade && stack.getItemDamage() < stack.getMaxDamage()) {
 					ItemStack newStack = new ItemStack(FairExchangeMain.amuletTrade, 2, (stack.getItemDamage() + 1));
 					event.craftMatrix.setInventorySlotContents(i, newStack);
 				}
