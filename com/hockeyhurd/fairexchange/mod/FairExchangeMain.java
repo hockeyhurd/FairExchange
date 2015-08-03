@@ -1,19 +1,13 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-
 import com.hockeyhurd.api.math.TimeLapse;
 import com.hockeyhurd.api.util.LogHelper;
+import com.hockeyhurd.fairexchange.block.BlockUnifier;
 import com.hockeyhurd.fairexchange.creativetab.FairExchangeCreativeTab;
 import com.hockeyhurd.fairexchange.handler.ConfigHandler;
 import com.hockeyhurd.fairexchange.item.ItemAmuletTrade;
 import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
 import com.hockeyhurd.fairexchange.util.Reference;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -21,6 +15,13 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 @Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:HCoreLib")
 public class FairExchangeMain {
@@ -36,9 +37,11 @@ public class FairExchangeMain {
 	public static final String modID = Reference.MOD_NAME;
 	
 	public static Item amuletTrade;
+
+	public static Block unifier;
 	
 	public static ConfigHandler configHandler;
-	public static CreativeTabs myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
+	public static final CreativeTabs myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -78,6 +81,8 @@ public class FairExchangeMain {
 	
 	private void loadObj() {
 		amuletTrade = new ItemAmuletTrade("AmuletTrade", assetDir);
+
+		unifier = new BlockUnifier(Material.rock, "unifier");
 	}
 	
 	@EventHandler

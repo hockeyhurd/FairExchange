@@ -2,6 +2,7 @@ package com.hockeyhurd.fairexchange.mod;
 
 import java.util.HashMap;
 
+import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +21,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class CommonProxy {
 
 	protected UpdateHandler updateHandler;
-	protected HashMap<Short, String> map;
+	protected HashMap<String, String> map;
 	public boolean updateFlag = false;
 	
 	public CommonProxy() {
@@ -31,7 +32,7 @@ public class CommonProxy {
 
 	public void init() {
 		registerEventHandlers();
-		// registerBlocks();
+		registerBlocks();
 		registerItems();
 		addOreDict();
 		// registerWorldgen();
@@ -40,7 +41,7 @@ public class CommonProxy {
 		addFurnaceRecipes();
 		// if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
 		// if (ModsLoadedHelper.ic2Loaded) maceratorRecipes();
-		// registerTileEntities();
+		registerTileEntities();
 		// registerGuiHandler();
 		// registerRegisters();
 	}
@@ -49,7 +50,11 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new OreDictionaryRegisterHandler());
 		FMLCommonHandler.instance().bus().register(new CraftingEventHandler());
 	}
-	
+
+	protected void registerBlocks() {
+		GameRegistry.registerBlock(FairExchangeMain.unifier, FairExchangeMain.unifier.getUnlocalizedName());
+	}
+
 	protected void registerItems() {
 		GameRegistry.registerItem(FairExchangeMain.amuletTrade, "AmuletTrade");
 	}
@@ -64,6 +69,10 @@ public class CommonProxy {
 	}
 	
 	protected void addFurnaceRecipes() {
+	}
+
+	protected void registerTileEntities() {
+		GameRegistry.registerTileEntity(TileUnifier.class, TileUnifier.class.getSimpleName());
 	}
 	
 	public void registerUpdateHandler() {
