@@ -1,28 +1,29 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import java.util.HashMap;
-
+import com.hockeyhurd.api.handler.NotifyPlayerOnJoinHandler;
+import com.hockeyhurd.api.handler.UpdateHandler;
+import com.hockeyhurd.fairexchange.handler.CraftingEventHandler;
+import com.hockeyhurd.fairexchange.handler.GuiHandler;
+import com.hockeyhurd.fairexchange.handler.OreDictionaryRegisterHandler;
+import com.hockeyhurd.fairexchange.manager.CraftingManager;
 import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
+import com.hockeyhurd.fairexchange.util.Reference;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.hockeyhurd.api.handler.NotifyPlayerOnJoinHandler;
-import com.hockeyhurd.api.handler.UpdateHandler;
-import com.hockeyhurd.fairexchange.handler.CraftingEventHandler;
-import com.hockeyhurd.fairexchange.handler.OreDictionaryRegisterHandler;
-import com.hockeyhurd.fairexchange.manager.CraftingManager;
-import com.hockeyhurd.fairexchange.util.Reference;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.HashMap;
 
 public class CommonProxy {
 
 	protected UpdateHandler updateHandler;
 	protected HashMap<String, String> map;
 	public boolean updateFlag = false;
+	protected static GuiHandler guiHandler;
 	
 	public CommonProxy() {
 	}
@@ -42,7 +43,7 @@ public class CommonProxy {
 		// if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
 		// if (ModsLoadedHelper.ic2Loaded) maceratorRecipes();
 		registerTileEntities();
-		// registerGuiHandler();
+		registerGuiHandler();
 		// registerRegisters();
 	}
 	
@@ -74,7 +75,15 @@ public class CommonProxy {
 	protected void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileUnifier.class, TileUnifier.class.getSimpleName());
 	}
-	
+
+	protected void registerGuiHandler() {
+		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(FairExchangeMain.instance, guiHandler);
+		else {
+			guiHandler = new GuiHandler();
+			NetworkRegistry.INSTANCE.registerGuiHandler(FairExchangeMain.instance, guiHandler);
+		}
+	}
+
 	public void registerUpdateHandler() {
 		updateHandler = new UpdateHandler(Reference.class);
 		updateHandler.check();

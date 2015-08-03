@@ -41,6 +41,17 @@ public abstract class AbstractTile extends TileEntity {
 		return new Vector3<Integer>(xCoord, yCoord, zCoord);
 	}
 
+	/**
+	 * Method used to prevent direct calling of 'updateEntity' method.
+	 */
+	protected abstract void updateTile();
+
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+		updateTile();
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound comp) {
 		super.readFromNBT(comp);
