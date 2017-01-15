@@ -10,22 +10,19 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class CraftingManager {
+public final class CraftingManager {
 
 	private static final ItemStack AMULET_STACK = new ItemStack(FairExchangeMain.amuletTrade, 1, OreDictionary.WILDCARD_VALUE);
-	public static List<ItemStack> oreList;
-	public static String[] dyes;
+	public static final List<ItemStack> oreList = new LinkedList<ItemStack>();
+	public static final String[] dyes = new String[EnumDyeColor.values().length];
 
 	public CraftingManager() {
 	}
 
 	public static void init() {
-		oreList = new ArrayList<ItemStack>();
-		dyes = new String[EnumDyeColor.values().length];
-
 		/* for (int i = 0; i < ItemDye.DYE_COLORS.length; i++) {
 			dyes[i] = EnumDyeColor.
 		}*/
@@ -72,6 +69,8 @@ public class CraftingManager {
 
 		// if (ModsLoadedHelper.tcLoaded) TiCRecipeIntegration.ticInit();
 		// if (ModsLoadedHelper.ic2Loaded) IC2RecipeIntegration.ic2Init();
+
+		ModdedManager.initModdedEntries();
 
 		// Add dyes last, as they are the most spammy.
 		addDyes();
@@ -137,6 +136,34 @@ public class CraftingManager {
 		if (++index >= dyes.length) index = 0;
 		ItemStack stack = getDyeByIndex(index, size);
 		return stack;
+	}
+
+	private static class ModdedManager {
+		private ModdedManager() {}
+
+		static void initModdedEntries() {
+			final ItemStack tinIngot = !OreDictionary.getOres("ingotTin").isEmpty() ?
+					OreDictionary.getOres("ingotTin").get(0) : null;
+
+			final ItemStack copperIngot = !OreDictionary.getOres("ingotCopper").isEmpty() ?
+					OreDictionary.getOres("ingotCopper").get(0) : null;
+
+			final ItemStack bronzeIngot = !OreDictionary.getOres("ingotBronze").isEmpty() ?
+					OreDictionary.getOres("ingotBronze").get(0) : null;
+
+			if (tinIngot != null)
+				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(tinIngot.getItem(), 3),
+						"ingotCopper", "ingotCopper", "ingotCopper", AMULET_STACK));
+
+			if (copperIngot != null)
+				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(copperIngot.getItem(), 1), "ingotTin", AMULET_STACK));
+
+
+			if (bronzeIngot != null)
+				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(bronzeIngot.getItem(), 4), "ingotCopper",
+						"ingotCopper", "ingotCopper", "ingotTin", AMULET_STACK));
+
+		}
 	}
 
 	/*private static class AERecipeIntegration {

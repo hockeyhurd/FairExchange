@@ -48,7 +48,7 @@ public class CommonProxy implements IProxy {
 		addOreDict();
 		// registerWorldgen();
 		// addFuelRegister();
-		addCraftingRecipes();
+		// addCraftingRecipes();
 		addFurnaceRecipes();
 		// if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
 		// if (ModsLoadedHelper.ic2Loaded) maceratorRecipes();
@@ -94,7 +94,7 @@ public class CommonProxy implements IProxy {
 		OreDictionary.registerOre("coal", new ItemStack(Items.COAL, 1, 1));
 	}
 	
-	protected void addCraftingRecipes() {
+	public void addCraftingRecipes() {
 		CraftingManager.init();
 	}
 	

@@ -78,7 +78,8 @@ public class FairExchangeMain implements IForgeMod {
 	public void init(FMLInitializationEvent event) {
 		TimeLapse tl = new TimeLapse();
 		logHelper.info("Init started");
-		
+
+		proxy.addCraftingRecipes();
 		proxy.registerRenderInformation();
 		
 		logHelper.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
