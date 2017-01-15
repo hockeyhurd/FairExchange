@@ -1,10 +1,11 @@
 package com.hockeyhurd.fairexchange.util;
 
+import net.minecraftforge.fml.common.Loader;
+
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import cpw.mods.fml.common.Loader;
 
 public class ModsLoadedHelper {
 

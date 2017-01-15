@@ -1,12 +1,10 @@
 package com.hockeyhurd.fairexchange.creativetab;
 
-import net.minecraft.item.Item;
-
-import com.hockeyhurd.api.creativetab.AbstractCreativeTab;
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.hockeyhurd.hcorelib.api.creativetab.AbstractCreativeTab;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FairExchangeCreativeTab extends AbstractCreativeTab {
 

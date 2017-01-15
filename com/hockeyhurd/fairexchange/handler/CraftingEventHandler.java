@@ -1,11 +1,9 @@
 package com.hockeyhurd.fairexchange.handler;
 
-import net.minecraft.item.ItemStack;
-
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class CraftingEventHandler {
 

@@ -1,11 +1,9 @@
 package com.hockeyhurd.fairexchange.handler;
 
-import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-
 import com.hockeyhurd.fairexchange.manager.CraftingManager;
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
 public class OreDictionaryRegisterHandler {
 
@@ -14,11 +12,13 @@ public class OreDictionaryRegisterHandler {
 
 	@SubscribeEvent
 	public void onRegister(OreRegisterEvent event) {
-		if (event.Ore != null && (event.Name.contains("ingot") || event.Name.contains("ore") || event.Name.contains("gem") || event.Name.contains("quartz"))) {
-			if (!CraftingManager.oreList.contains(event.Ore)) {
-				CraftingManager.oreList.add(event.Ore);
-				CraftingManager.addRecipe(event.Ore);
-				FairExchangeMain.lh.info("Registered:", event.Name);
+		if (event.getOre() != null && (event.getName().contains("ingot") || event.getName().contains("ore") || event.getName().contains("gem") ||
+				event.getName().contains("quartz"))) {
+
+			if (!CraftingManager.oreList.contains(event.getOre())) {
+				CraftingManager.oreList.add(event.getOre());
+				CraftingManager.addRecipe(event.getOre());
+				FairExchangeMain.logHelper.info("Registered:", event.getName());
 			}
 		}
 

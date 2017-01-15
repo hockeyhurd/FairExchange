@@ -1,12 +1,12 @@
 package com.hockeyhurd.fairexchange.gui;
 
-import com.hockeyhurd.api.math.Vector2;
 import com.hockeyhurd.fairexchange.container.ContainerUnifier;
 import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.hockeyhurd.hcorelib.api.math.Vector2;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Gui class for TileUnifier.

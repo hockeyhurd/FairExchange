@@ -1,11 +1,13 @@
 package com.hockeyhurd.fairexchange.tileentity.container;
 
-import com.hockeyhurd.fairexchange.tileentity.AbstractTile;
+import com.hockeyhurd.hcorelib.api.tileentity.AbstractTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 
 /**
  * General purpose class for creating tile entities that contain an inventory
@@ -14,7 +16,7 @@ import net.minecraft.nbt.NBTTagList;
  * @author hockeyhurd
  * @version 7/26/2015.
  */
-public abstract class AbstractTileISided extends AbstractTile implements ISidedInventory {
+public abstract class AbstractTileISided extends AbstractTile implements ISidedInventory, ITickable {
 
 	protected ItemStack[] slots;
 
@@ -66,7 +68,7 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
+	public int[] getSlotsForFace(EnumFacing side) {
 		return new int[0];
 	}
 
@@ -74,12 +76,12 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	public abstract boolean isItemValidForSlot(int slot, ItemStack stack);
 
 	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
 		return slot >= 0 && slot < getSizeInventory() && isItemValidForSlot(slot, stack);
 	}
 
 	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
 		return true;
 	}
 
@@ -115,11 +117,6 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot) {
-		return getStackInSlot(slot);
-	}
-
-	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		slots[slot] = stack;
 		if (stack != null) {
@@ -128,11 +125,6 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 			if (stack.stackSize <= 0) slots[slot] = null;
 			else if (stack.stackSize > minMaxSize) slots[slot].stackSize = minMaxSize;
 		}
-	}
-
-	@Override
-	public String getInventoryName() {
-		return getCustomName();
 	}
 
 	@Override
@@ -148,14 +140,6 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		return true;
-	}
-
-	@Override
-	public void openInventory() {
-	}
-
-	@Override
-	public void closeInventory() {
 	}
 
 }

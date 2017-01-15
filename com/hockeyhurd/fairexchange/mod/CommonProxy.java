@@ -1,19 +1,20 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import com.hockeyhurd.api.handler.NotifyPlayerOnJoinHandler;
-import com.hockeyhurd.api.handler.UpdateHandler;
 import com.hockeyhurd.fairexchange.handler.CraftingEventHandler;
 import com.hockeyhurd.fairexchange.handler.GuiHandler;
 import com.hockeyhurd.fairexchange.handler.OreDictionaryRegisterHandler;
 import com.hockeyhurd.fairexchange.manager.CraftingManager;
 import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
 import com.hockeyhurd.fairexchange.util.Reference;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+import com.hockeyhurd.hcorelib.api.block.IHBlock;
+import com.hockeyhurd.hcorelib.api.handler.NotifyPlayerOnJoinHandler;
+import com.hockeyhurd.hcorelib.api.handler.UpdateHandler;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
@@ -53,16 +54,17 @@ public class CommonProxy {
 	}
 
 	protected void registerBlocks() {
-		GameRegistry.registerBlock(FairExchangeMain.unifier, FairExchangeMain.unifier.getUnlocalizedName());
+		GameRegistry.register(FairExchangeMain.unifier);
+		GameRegistry.register(((IHBlock) FairExchangeMain.unifier).getItemBlock().setRegistryName(((IHBlock) FairExchangeMain.unifier).getBlock().getRegistryName()));
 	}
 
 	protected void registerItems() {
-		GameRegistry.registerItem(FairExchangeMain.amuletTrade, "AmuletTrade");
+		GameRegistry.register(FairExchangeMain.amuletTrade);
 	}
 	
 	protected void addOreDict() {
-		OreDictionary.registerOre("coal", Items.coal);
-		OreDictionary.registerOre("coal", new ItemStack(Items.coal, 1, 1));
+		OreDictionary.registerOre("coal", Items.COAL);
+		OreDictionary.registerOre("coal", new ItemStack(Items.COAL, 1, 1));
 	}
 	
 	protected void addCraftingRecipes() {
@@ -85,12 +87,13 @@ public class CommonProxy {
 	}
 
 	public void registerUpdateHandler() {
-		updateHandler = new UpdateHandler(Reference.class);
+		updateHandler = new UpdateHandler(Reference.MOD_NAME, Reference.VERSION, Reference.MOD_URL, Reference.CHANGELOG_URL);
 		updateHandler.check();
 		this.map = updateHandler.getMap();
 		this.updateFlag = updateHandler.getUpToDate();
-		
-		MinecraftForge.EVENT_BUS.register(new NotifyPlayerOnJoinHandler(updateHandler, this.map, Reference.class, this.updateFlag, true, FairExchangeMain.configHandler.allowUpdating()));
+
+		MinecraftForge.EVENT_BUS.register(new NotifyPlayerOnJoinHandler(updateHandler, map, Reference.MOD_NAME, updateFlag, true,
+				FairExchangeMain.configHandler.allowUpdating()));
 	}
 	
 

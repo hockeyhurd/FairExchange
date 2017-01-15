@@ -1,39 +1,37 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import com.hockeyhurd.api.math.TimeLapse;
-import com.hockeyhurd.api.util.LogHelper;
 import com.hockeyhurd.fairexchange.block.BlockUnifier;
 import com.hockeyhurd.fairexchange.creativetab.FairExchangeCreativeTab;
 import com.hockeyhurd.fairexchange.handler.ConfigHandler;
 import com.hockeyhurd.fairexchange.item.ItemAmuletTrade;
-import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
+import com.hockeyhurd.fairexchange.util.FairExchangeMetadata;
 import com.hockeyhurd.fairexchange.util.Reference;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import com.hockeyhurd.hcorelib.api.creativetab.AbstractCreativeTab;
+import com.hockeyhurd.hcorelib.api.math.TimeLapse;
+import com.hockeyhurd.hcorelib.api.util.LogHelper;
+import com.hockeyhurd.hcorelib.api.util.interfaces.IForgeMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-@Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:HCoreLib")
-public class FairExchangeMain {
+@Mod(modid = Reference.MOD_NAME, acceptedMinecraftVersions = Reference.MINECRAFT_VERSION, name = Reference.MOD_NAME,
+		version = Reference.VERSION, dependencies = "required-after:HCoreLib"/*, guiFactory = "com.hockeyhurd.mod.gui.config.PZGuiFactory"*/)
+public class FairExchangeMain implements IForgeMod {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.fairexchange.mod.ClientProxy", serverSide = "com.hockeyhurd.fairexchange.mod.CommonProxy")
 	public static CommonProxy proxy;
 	
-	@Instance(Reference.MOD_NAME)
+	@Mod.Instance(Reference.MOD_NAME)
 	public static FairExchangeMain instance;
 	
-	public static LogHelper lh;
-	public static final String assetDir = Reference.MOD_NAME.toLowerCase() + ":";
+	public static LogHelper logHelper;
+	public static final String assetDir = Reference.MOD_NAME.toLowerCase(); // + ":";
 	public static final String modID = Reference.MOD_NAME;
 	
 	public static Item amuletTrade;
@@ -41,65 +39,76 @@ public class FairExchangeMain {
 	public static Block unifier;
 	
 	public static ConfigHandler configHandler;
-	public static final CreativeTabs myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
+	public static final AbstractCreativeTab myCreativeTab = new FairExchangeCreativeTab(CreativeTabs.getNextID(), Reference.MOD_NAME);
 	
-	@EventHandler
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		TimeLapse tl = new TimeLapse();
-		lh = new LogHelper(Reference.class);
-		
-		lh.info("Pre-init started, looking for config info!");
-		configHandler = new ConfigHandler(event, Reference.class);
-		configHandler.handleConfiguration();
-		lh.info("Config loaded successfully! Patching mod now!");
-		
-		lh.info("Detecting other soft-dependent mods.");
-		ModsLoadedHelper.init();
-		
-		Iterator iter = ModsLoadedHelper.getEntries().iterator();
-		do {
-			Entry<String, Boolean> current = (Entry<String, Boolean>) iter.next();
-			if (current.getValue()) lh.info(current.getKey(), "detected! Wrapping into mod!");
-			else lh.warn(current.getKey(), "not detected!");
+		logHelper = new LogHelper(modID);
+
+		final Side side = FMLCommonHandler.instance().getEffectiveSide();
+
+		if (side == Side.CLIENT) {
+			logHelper.info("Injecting mcmod.info information");
+
+			final FairExchangeMetadata metadata = new FairExchangeMetadata(event);
+
+			if (metadata.getResult()) logHelper.info("Injection was successful!");
+			else logHelper.warn("Injection was un-successful! mcmod.info is a liar!");
 		}
-		while (iter.hasNext());
 		
-		lh.info("Pre-init finished succesfully after", tl.getEffectiveTimeSince(), "ms!");
-	}
-	
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		TimeLapse tl = new TimeLapse();
-		lh.info("Init started");
+		logHelper.info("Pre-init started, looking for config info!");
+		configHandler = new ConfigHandler(event, modID);
+		configHandler.handleConfiguration();
+		logHelper.info("Config loaded successfully! Patching mod now!");
 		
+		// logHelper.info("Detecting other soft-dependent mods.");
+
 		loadObj();
 		proxy.init();
+
+		logHelper.info("Pre-init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+	}
+	
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent event) {
+		TimeLapse tl = new TimeLapse();
+		logHelper.info("Init started");
+		
 		proxy.registerRenderInformation();
 		
-		lh.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+		logHelper.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
 	private void loadObj() {
-		amuletTrade = new ItemAmuletTrade("AmuletTrade", assetDir);
+		amuletTrade = new ItemAmuletTrade("amuletTrade", assetDir);
 
-		unifier = new BlockUnifier(Material.rock, "unifier");
+		unifier = new BlockUnifier(Material.ROCK, "unifier");
 	}
 	
-	@EventHandler
+	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		TimeLapse tl = new TimeLapse();
-		lh.info("Post-Init started");
+		logHelper.info("Post-Init started");
 		
 		if (configHandler.allowUpdating()) {
 			proxy.registerUpdateHandler();
-			if (!proxy.updateFlag) lh.warn("Found an update!");
-			else lh.info("Everything is up to date!");
+			if (!proxy.updateFlag) logHelper.warn("Found an update!");
+			else logHelper.info("Everything is up to date!");
 		}
-		else lh.warn("Skipping checking for updates. WARNING: bugs may exist!");
+		else logHelper.warn("Skipping checking for updates. WARNING: bugs may exist!");
 		
-		lh.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
+		logHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
-	
+
+	@Override
+	public void serverStartingEvent(FMLServerStartingEvent event) {
+	}
+
+	@Override
+	public void serverStartedEvent(FMLServerStartedEvent event) {
+	}
+
 	public FairExchangeMain() {
 	}
 

@@ -1,16 +1,14 @@
 package com.hockeyhurd.fairexchange.handler;
 
-import com.hockeyhurd.api.handler.AbstractConfigHandler;
-import com.hockeyhurd.api.util.AbstractReference;
-
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import com.hockeyhurd.hcorelib.api.handler.config.AbstractConfigHandler;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigHandler extends AbstractConfigHandler {
 
 	private boolean updateCheck;
 	
-	public ConfigHandler(FMLPreInitializationEvent event, Class<? extends AbstractReference> classRef) {
-		super(event, classRef);
+	public ConfigHandler(FMLPreInitializationEvent event, String modID) {
+		super(event, modID);
 	}
 
 	public void handleConfiguration() {

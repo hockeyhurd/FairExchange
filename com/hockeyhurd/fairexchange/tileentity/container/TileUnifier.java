@@ -1,6 +1,7 @@
 package com.hockeyhurd.fairexchange.tileentity.container;
 
-import com.hockeyhurd.api.util.OreDictParser;
+import com.hockeyhurd.hcorelib.api.util.OreDictParser;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -23,12 +24,45 @@ public class TileUnifier extends AbstractTileISided {
 	}
 
 	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return null;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {
+	}
+
+	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	protected void updateTile() {
+	public int getField(int id) {
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+
+	}
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+	}
+
+	@Override
+	public void update() {
+
 		if (!worldObj.isRemote && worldObj.getTotalWorldTime() % 5L == 0) {
 
 			ItemStack srcSlot = getStackInSlot(0);
@@ -83,4 +117,14 @@ public class TileUnifier extends AbstractTileISided {
 
 	}
 
+	@Override
+	public String getName() {
+		return getInventoryName();
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		final String name = getInventoryName();
+		return name != null && !name.isEmpty();
+	}
 }

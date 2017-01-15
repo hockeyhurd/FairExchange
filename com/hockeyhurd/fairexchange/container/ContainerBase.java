@@ -1,6 +1,6 @@
 package com.hockeyhurd.fairexchange.container;
 
-import com.hockeyhurd.fairexchange.tileentity.AbstractTile;
+import com.hockeyhurd.hcorelib.api.tileentity.AbstractTile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

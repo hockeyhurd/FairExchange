@@ -4,7 +4,7 @@ import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
+import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -27,7 +27,7 @@ public class ContainerUnifier extends ContainerBase {
 
 		for (int y = 0; y < 2; y++) {
 			for (int x = 0; x < 9; x++) {
-				this.addSlotToContainer(new SlotFurnace(inv.player, (TileUnifier) te, 1 + x + y * 9, 8 + x * 18, 1 + 53 + y * 18));
+				this.addSlotToContainer(new SlotFurnaceOutput(inv.player, (TileUnifier) te, 1 + x + y * 9, 8 + x * 18, 1 + 53 + y * 18));
 			}
 		}
 	}

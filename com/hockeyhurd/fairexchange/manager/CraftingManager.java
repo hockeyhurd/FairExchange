@@ -1,23 +1,17 @@
 package com.hockeyhurd.fairexchange.manager;
 
-import ic2.api.item.IC2Items;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemDye;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import tconstruct.library.TConstructRegistry;
 
-import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-import com.hockeyhurd.fairexchange.util.ModsLoadedHelper;
-
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CraftingManager {
 
@@ -30,50 +24,54 @@ public class CraftingManager {
 
 	public static void init() {
 		oreList = new ArrayList<ItemStack>();
-		dyes = new String[ItemDye.field_150923_a.length];
+		dyes = new String[EnumDyeColor.values().length];
 
-		for (int i = 0; i < ItemDye.field_150923_a.length; i++) {
-			dyes[i] = ItemDye.field_150923_a[i];
-		}
+		/* for (int i = 0; i < ItemDye.DYE_COLORS.length; i++) {
+			dyes[i] = EnumDyeColor.
+		}*/
+
+		int i = 0;
+		for (EnumDyeColor color : EnumDyeColor.values())
+			dyes[i] = color.getName();
 
 		addShapedRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), " y ", "yzy", " y ", 'y', "gemEmerald", 'z', "ingotGold"));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.diamond, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.DIAMOND, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.emerald, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold",
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.EMERALD, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold",
 				"ingotGold", "ingotGold", "ingotGold", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.nether_star, 1), "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald",
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.NETHER_STAR, 1), "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald",
 				"blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 4), "gemDiamond", AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 4), "gemDiamond", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 8), "gemEmerald", AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 8), "gemEmerald", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.gold_ingot, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron",
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron",
 				"ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 8), Items.gold_ingot, AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 8), Items.GOLD_INGOT, AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.ender_pearl, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron",
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.ENDER_PEARL, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron",
 				AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 4), Items.ender_pearl, AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 4), Items.ENDER_PEARL, AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.quartz, 5), "ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.QUARTZ, 5), "ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.iron_ingot, 3), Items.quartz, Items.quartz, Items.quartz, Items.quartz, Items.quartz,
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 3), Items.QUARTZ, Items.QUARTZ, Items.QUARTZ, Items.QUARTZ, Items.QUARTZ,
 				AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.redstone, 2), "coal", "coal", AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.REDSTONE, 2), "coal", "coal", AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.coal, 2), Items.redstone, Items.redstone, AMULET_STACK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.QUARTZ, 2), Items.REDSTONE, Items.REDSTONE, AMULET_STACK));
 
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.obsidian, 1), AMULET_STACK, "ingotIron", Blocks.redstone_block));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.OBSIDIAN, 1), AMULET_STACK, "ingotIron", Blocks.REDSTONE_BLOCK));
 
 
-		if (ModsLoadedHelper.tcLoaded) TiCRecipeIntegration.ticInit();
-		if (ModsLoadedHelper.ic2Loaded) IC2RecipeIntegration.ic2Init();
+		// if (ModsLoadedHelper.tcLoaded) TiCRecipeIntegration.ticInit();
+		// if (ModsLoadedHelper.ic2Loaded) IC2RecipeIntegration.ic2Init();
 
 		// Add dyes last, as they are the most spammy.
 		addDyes();
@@ -122,7 +120,7 @@ public class CraftingManager {
 		ItemStack stack = null;
 		for (int i = 0; i < dyes.length; i++) {
 			if (dyes[i].equals(name)) {
-				stack = new ItemStack(Items.dye, size, i);
+				stack = new ItemStack(Items.DYE, size, i);
 				break;
 			}
 		}
@@ -131,7 +129,7 @@ public class CraftingManager {
 	}
 
 	private static ItemStack getDyeByIndex(int index, int size) {
-		ItemStack stack = new ItemStack(Items.dye, size, index);
+		ItemStack stack = new ItemStack(Items.DYE, size, index);
 		return stack;
 	}
 
@@ -148,7 +146,7 @@ public class CraftingManager {
 		}
 	}*/
 	
-	private static class IC2RecipeIntegration {
+	/*private static class IC2RecipeIntegration {
 		private IC2RecipeIntegration() {
 		}
 
@@ -177,9 +175,9 @@ public class CraftingManager {
 		static final void ic2Init() {
 			addIC2Recipes();
 		}
-	}
+	}*/
 
-	private static class TiCRecipeIntegration {
+	/*private static class TiCRecipeIntegration {
 		private TiCRecipeIntegration() {
 		}
 
@@ -223,6 +221,6 @@ public class CraftingManager {
 		static final void ticInit() {
 			addTinkersRecipes();
 		}
-	}
+	}*/
 
 }
