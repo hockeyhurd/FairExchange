@@ -1,4 +1,4 @@
-package com.hockeyhurd.fairexchange.util;
+package com.hockeyhurd.fairexchange.mod.util;
 
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

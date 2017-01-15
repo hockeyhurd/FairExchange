@@ -1,4 +1,4 @@
-package com.hockeyhurd.fairexchange.tileentity.container;
+package com.hockeyhurd.fairexchange.mod.container;
 
 import com.hockeyhurd.hcorelib.api.tileentity.AbstractTile;
 import net.minecraft.entity.player.EntityPlayer;

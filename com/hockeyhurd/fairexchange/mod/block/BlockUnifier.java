@@ -1,7 +1,7 @@
-package com.hockeyhurd.fairexchange.block;
+package com.hockeyhurd.fairexchange.mod.block;
 
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
-import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
+import com.hockeyhurd.fairexchange.mod.container.TileUnifier;
 import com.hockeyhurd.hcorelib.api.block.AbstractHCoreBlockContainer;
 import com.hockeyhurd.hcorelib.api.util.enums.EnumHarvestLevel;
 import net.minecraft.block.Block;

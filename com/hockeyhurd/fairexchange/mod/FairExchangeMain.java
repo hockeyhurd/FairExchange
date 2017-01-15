@@ -1,11 +1,11 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import com.hockeyhurd.fairexchange.block.BlockUnifier;
-import com.hockeyhurd.fairexchange.creativetab.FairExchangeCreativeTab;
-import com.hockeyhurd.fairexchange.handler.ConfigHandler;
-import com.hockeyhurd.fairexchange.item.ItemAmuletTrade;
-import com.hockeyhurd.fairexchange.util.FairExchangeMetadata;
-import com.hockeyhurd.fairexchange.util.Reference;
+import com.hockeyhurd.fairexchange.mod.block.BlockUnifier;
+import com.hockeyhurd.fairexchange.mod.creativetab.FairExchangeCreativeTab;
+import com.hockeyhurd.fairexchange.mod.handler.ConfigHandler;
+import com.hockeyhurd.fairexchange.mod.item.ItemAmuletTrade;
+import com.hockeyhurd.fairexchange.mod.util.FairExchangeMetadata;
+import com.hockeyhurd.fairexchange.mod.util.Reference;
 import com.hockeyhurd.hcorelib.api.creativetab.AbstractCreativeTab;
 import com.hockeyhurd.hcorelib.api.math.TimeLapse;
 import com.hockeyhurd.hcorelib.api.util.LogHelper;
@@ -17,7 +17,11 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Reference.MOD_NAME, acceptedMinecraftVersions = Reference.MINECRAFT_VERSION, name = Reference.MOD_NAME,

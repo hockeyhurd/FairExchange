@@ -1,8 +1,8 @@
-package com.hockeyhurd.fairexchange.handler;
+package com.hockeyhurd.fairexchange.mod.handler;
 
-import com.hockeyhurd.fairexchange.container.ContainerUnifier;
-import com.hockeyhurd.fairexchange.gui.GuiUnifier;
-import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
+import com.hockeyhurd.fairexchange.mod.container.ContainerUnifier;
+import com.hockeyhurd.fairexchange.mod.container.TileUnifier;
+import com.hockeyhurd.fairexchange.mod.gui.GuiUnifier;
 import com.hockeyhurd.hcorelib.api.math.VectorHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

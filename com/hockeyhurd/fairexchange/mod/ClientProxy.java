@@ -1,5 +1,7 @@
 package com.hockeyhurd.fairexchange.mod;
 
+import com.hockeyhurd.fairexchange.mod.registry.BlockRegistry;
+import com.hockeyhurd.fairexchange.mod.registry.ItemRegistry;
 import com.hockeyhurd.hcorelib.api.block.IHBlock;
 import com.hockeyhurd.hcorelib.api.client.util.ModelRegistry;
 import com.hockeyhurd.hcorelib.api.item.IHItem;
@@ -15,22 +17,40 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	protected void registerBlocks() {
-		GameRegistry.register(FairExchangeMain.unifier);
-		GameRegistry.register(((IHBlock) FairExchangeMain.unifier).getItemBlock().setRegistryName(((IHBlock) FairExchangeMain.unifier).getBlock().getRegistryName()));
-		ModelRegistry.registerBlock((IHBlock) FairExchangeMain.unifier);
+		BlockRegistry.getInstance().init(FairExchangeMain.class);
+
+		for (IHBlock block : BlockRegistry.getInstance().getBlockMap().values()) {
+			if (block != null) {
+				GameRegistry.register(block.getBlock());
+				GameRegistry.register(block.getItemBlock().setRegistryName(block.getBlock().getRegistryName()));
+				ModelRegistry.registerBlock(block);
+			}
+		}
 	}
 
 	@Override
 	protected void registerItems() {
-		GameRegistry.register(FairExchangeMain.amuletTrade);
-		ModelRegistry.registerItem((IHItem) FairExchangeMain.amuletTrade);
+		ItemRegistry.getInstance().init(FairExchangeMain.class);
+
+		for (IHItem item : ItemRegistry.getInstance().getItemMap().values()) {
+			if (item != null) {
+				GameRegistry.register(item.getItem());
+				ModelRegistry.registerItem(item);
+			}
+		}
 	}
 
+	@Override
 	public void registerRenderInformation() {
 		registerSpecialRenderers();
 	}
-	
+
 	private void registerSpecialRenderers() {
 	}
-	
+
+	@Override
+	public boolean isClient() {
+		return true;
+	}
+
 }

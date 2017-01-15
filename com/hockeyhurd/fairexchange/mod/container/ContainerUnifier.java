@@ -1,6 +1,5 @@
-package com.hockeyhurd.fairexchange.container;
+package com.hockeyhurd.fairexchange.mod.container;
 
-import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -10,7 +9,7 @@ import net.minecraft.item.ItemStack;
 /**
  * Container class for TileUnifier.
  *
- * @see com.hockeyhurd.fairexchange.tileentity.container.TileUnifier
+ * @see com.hockeyhurd.fairexchange.mod.container.TileUnifier
  *
  * @author hockeyhurd
  * @version 8/3/2015.

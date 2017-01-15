@@ -1,14 +1,18 @@
 package com.hockeyhurd.fairexchange.mod;
 
-import com.hockeyhurd.fairexchange.handler.CraftingEventHandler;
-import com.hockeyhurd.fairexchange.handler.GuiHandler;
-import com.hockeyhurd.fairexchange.handler.OreDictionaryRegisterHandler;
-import com.hockeyhurd.fairexchange.manager.CraftingManager;
-import com.hockeyhurd.fairexchange.tileentity.container.TileUnifier;
-import com.hockeyhurd.fairexchange.util.Reference;
+import com.hockeyhurd.fairexchange.mod.container.TileUnifier;
+import com.hockeyhurd.fairexchange.mod.handler.CraftingEventHandler;
+import com.hockeyhurd.fairexchange.mod.handler.GuiHandler;
+import com.hockeyhurd.fairexchange.mod.handler.OreDictionaryRegisterHandler;
+import com.hockeyhurd.fairexchange.mod.manager.CraftingManager;
+import com.hockeyhurd.fairexchange.mod.registry.BlockRegistry;
+import com.hockeyhurd.fairexchange.mod.registry.ItemRegistry;
+import com.hockeyhurd.fairexchange.mod.util.Reference;
 import com.hockeyhurd.hcorelib.api.block.IHBlock;
 import com.hockeyhurd.hcorelib.api.handler.NotifyPlayerOnJoinHandler;
 import com.hockeyhurd.hcorelib.api.handler.UpdateHandler;
+import com.hockeyhurd.hcorelib.api.item.IHItem;
+import com.hockeyhurd.hcorelib.api.util.interfaces.IProxy;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +23,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
 
-public class CommonProxy {
+public class CommonProxy implements IProxy {
 
 	protected UpdateHandler updateHandler;
 	protected HashMap<String, String> map;
@@ -30,6 +34,11 @@ public class CommonProxy {
 	}
 	
 	public void registerRenderInformation() {
+	}
+
+	@Override
+	public boolean isClient() {
+		return false;
 	}
 
 	public void init() {
@@ -47,19 +56,37 @@ public class CommonProxy {
 		registerGuiHandler();
 		// registerRegisters();
 	}
-	
-	protected void registerEventHandlers() {
+
+	@Override
+	public void registerInputHandlers() {
+
+	}
+
+	@Override
+	public void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new OreDictionaryRegisterHandler());
 		FMLCommonHandler.instance().bus().register(new CraftingEventHandler());
 	}
 
 	protected void registerBlocks() {
-		GameRegistry.register(FairExchangeMain.unifier);
-		GameRegistry.register(((IHBlock) FairExchangeMain.unifier).getItemBlock().setRegistryName(((IHBlock) FairExchangeMain.unifier).getBlock().getRegistryName()));
+		BlockRegistry.getInstance().init(FairExchangeMain.class);
+
+		for (IHBlock block : BlockRegistry.getInstance().getBlockMap().values()) {
+			if (block != null) {
+				GameRegistry.register(block.getBlock());
+				GameRegistry.register(block.getItemBlock().setRegistryName(block.getBlock().getRegistryName()));
+			}
+		}
 	}
 
 	protected void registerItems() {
-		GameRegistry.register(FairExchangeMain.amuletTrade);
+		ItemRegistry.getInstance().init(FairExchangeMain.class);
+
+		for (IHItem item : ItemRegistry.getInstance().getItemMap().values()) {
+			if (item != null) {
+				GameRegistry.register(item.getItem());
+			}
+		}
 	}
 	
 	protected void addOreDict() {

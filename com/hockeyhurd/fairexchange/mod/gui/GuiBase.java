@@ -1,6 +1,6 @@
-package com.hockeyhurd.fairexchange.gui;
+package com.hockeyhurd.fairexchange.mod.gui;
 
-import com.hockeyhurd.fairexchange.container.ContainerBase;
+import com.hockeyhurd.fairexchange.mod.container.ContainerBase;
 import com.hockeyhurd.hcorelib.api.math.Vector2;
 import com.hockeyhurd.hcorelib.api.tileentity.AbstractTile;
 import net.minecraft.client.Minecraft;
