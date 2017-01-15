@@ -14,6 +14,19 @@ public class ItemAmuletTrade extends AbstractHCoreItem {
 
 	public ItemAmuletTrade(String name, String assetDir) {
 		super(FairExchangeMain.myCreativeTab, assetDir, name);
+		setMaxStackSize(1);
+	}
+
+	@Override
+	public boolean hasContainerItem() {
+		return true;
+	}
+
+	@Override
+	public ItemStack getContainerItem(ItemStack stack) {
+		if (stack == null || stack.stackSize <= 0) return null;
+
+		return stack.copy();
 	}
 
 	@Override

@@ -21,8 +21,6 @@ public class OreDictionaryRegisterHandler {
 				FairExchangeMain.logHelper.info("Registered:", event.getName());
 			}
 		}
-
-		else return;
 	}
 
 }

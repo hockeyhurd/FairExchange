@@ -17,7 +17,7 @@ public final class CraftingManager {
 
 	private static final ItemStack AMULET_STACK = new ItemStack(FairExchangeMain.amuletTrade, 1, OreDictionary.WILDCARD_VALUE);
 	public static final List<ItemStack> oreList = new LinkedList<ItemStack>();
-	public static final String[] dyes = new String[EnumDyeColor.values().length];
+	public static final String[] COLORS = new String[EnumDyeColor.values().length];
 
 	public CraftingManager() {
 	}
@@ -55,13 +55,13 @@ public final class CraftingManager {
 
 		ModdedManager.initModdedEntries();
 
-		// Add dyes last, as they are the most spammy.
+		// Add COLORS last, as they are the most spammy.
 
 		int i = 0;
 		for (EnumDyeColor color : EnumDyeColor.values())
-			dyes[i++] = color.getName();
+			COLORS[i++] = color.getName();
 
-		addDyes();
+		addDyesAndWools();
 	}
 
 	private static void addShapedRecipe(ShapedOreRecipe rec) {
@@ -97,16 +97,17 @@ public final class CraftingManager {
 		return stack;
 	}
 
-	private static void addDyes() {
-		for (int i = 0; i < dyes.length; i++) {
+	private static void addDyesAndWools() {
+		for (int i = 0; i < COLORS.length; i++) {
 			addShapelessRecipe(new ShapelessOreRecipe(getNextDye(i, 1), getDyeByIndex(i, 1), AMULET_STACK));
+			addShapelessRecipe(new ShapelessOreRecipe(getNextWool(i, 1), getWoolByIndex(i, 1), AMULET_STACK));
 		}
 	}
 
 	private static ItemStack getDyeByName(String name, int size) {
 		ItemStack stack = null;
-		for (int i = 0; i < dyes.length; i++) {
-			if (dyes[i].equals(name)) {
+		for (int i = 0; i < COLORS.length; i++) {
+			if (COLORS[i].equals(name)) {
 				stack = new ItemStack(Items.DYE, size, i);
 				break;
 			}
@@ -116,14 +117,24 @@ public final class CraftingManager {
 	}
 
 	private static ItemStack getDyeByIndex(int index, int size) {
-		ItemStack stack = new ItemStack(Items.DYE, size, index);
-		return stack;
+		return new ItemStack(Items.DYE, size, index);
 	}
 
 	private static ItemStack getNextDye(int index, int size) {
-		if (++index >= dyes.length) index = 0;
-		ItemStack stack = getDyeByIndex(index, size);
-		return stack;
+		// if (++index >= COLORS.length) index = 0;
+		index++;
+		index %= COLORS.length;
+		return getDyeByIndex(index, size);
+	}
+
+	private static ItemStack getWoolByIndex(int index, int size) {
+		return new ItemStack(Blocks.WOOL, size, index);
+	}
+
+	private static ItemStack getNextWool(int index, int size) {
+		index++;
+		index %= COLORS.length;
+		return getWoolByIndex(index, size);
 	}
 
 	private static class ModdedManager {
@@ -159,13 +170,15 @@ public final class CraftingManager {
 					OreDictionary.getOres("crystalCertusQuartz").get(0).copy() : null;
 
 			if (tinIngot != null) {
-				tinIngot.stackSize = 3;
+				tinIngot.stackSize = 1;
 				addShapelessRecipe(new ShapelessOreRecipe(tinIngot, "ingotCopper", "ingotCopper", "ingotCopper", AMULET_STACK));
+
+				tinIngot.stackSize = 3;
 				addShapelessRecipe(new ShapelessOreRecipe(tinIngot, "aluminiumIngot", AMULET_STACK));
 			}
 
 			if (copperIngot != null) {
-				copperIngot.stackSize = 1;
+				copperIngot.stackSize = 3;
 
 				addShapelessRecipe(new ShapelessOreRecipe(copperIngot, "ingotTin", AMULET_STACK));
 			}
@@ -211,89 +224,5 @@ public final class CraftingManager {
 			}
 		}
 	}
-
-	/*private static class AERecipeIntegration {
-		private static final ItemStack quartzCrystal = null;
-		
-		private AERecipeIntegration() {
-		}
-	}*/
-	
-	/*private static class IC2RecipeIntegration {
-		private IC2RecipeIntegration() {
-		}
-
-		private static ItemStack getItemStackFromIC2(String name) {
-			return IC2Items.getItem(name);
-		}
-
-		private static ItemStack getItemStackFromIC2(String name, int size) {
-			ItemStack stack = getItemStackFromIC2(name);
-			stack.stackSize = size > 0 ? size : 1;
-			return stack;
-		}
-
-		private static final void addIC2Recipes() {
-			final ItemStack tin = getItemStackFromIC2("tinIngot");
-			final ItemStack copper = getItemStackFromIC2("copperIngot");
-			final ItemStack bronze = getItemStackFromIC2("bronzeIngot");
-
-			addShapelessRecipe(new ShapelessOreRecipe(tin, copper, copper, copper, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("copperIngot", 3), tin, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromIC2("bronzeIngot", 4), copper, copper, copper, tin, AMULET_STACK));
-		}
-
-		static final void ic2Init() {
-			addIC2Recipes();
-		}
-	}*/
-
-	/*private static class TiCRecipeIntegration {
-		private TiCRecipeIntegration() {
-		}
-
-		private static final void addTinkersRecipes() {
-			final ItemStack tin = getItemStackFromTC("ingotTin");
-			final ItemStack copper = getItemStackFromTC("ingotCopper");
-			final ItemStack aluminium = getItemStackFromTC("ingotAluminum");
-			final ItemStack bronze = getItemStackFromTC("ingotBronze");
-			final ItemStack alumite = getItemStackFromTC("ingotAlumite");
-			final ItemStack cobalt = getItemStackFromTC("ingotCobalt");
-			final ItemStack ardite = getItemStackFromTC("ingotArdite");
-			final ItemStack manyullyn = getItemStackFromTC("ingotManyullyn");
-
-			addShapelessRecipe(new ShapelessOreRecipe(tin, copper, copper, copper, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotCopper", 3), tin, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(aluminium, tin, tin, tin, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotTin", 3), aluminium, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(getItemStackFromTC("ingotBronze", 4), copper, copper, copper, tin, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(manyullyn, cobalt, cobalt, ardite, ardite, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(ardite, alumite, alumite, alumite, AMULET_STACK));
-
-			addShapelessRecipe(new ShapelessOreRecipe(cobalt, ardite, ardite, ardite, AMULET_STACK));
-		}
-
-		private static ItemStack getItemStackFromTC(String name) {
-			return TConstructRegistry.getItemStack(name);
-		}
-
-		private static ItemStack getItemStackFromTC(String name, int size) {
-			ItemStack stack = getItemStackFromTC(name);
-			stack.stackSize = size > 0 ? size : 1;
-			return stack;
-		}
-
-		static final void ticInit() {
-			addTinkersRecipes();
-		}
-	}*/
 
 }
