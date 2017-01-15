@@ -23,56 +23,44 @@ public final class CraftingManager {
 	}
 
 	public static void init() {
-		/* for (int i = 0; i < ItemDye.DYE_COLORS.length; i++) {
-			dyes[i] = EnumDyeColor.
-		}*/
-
-		int i = 0;
-		for (EnumDyeColor color : EnumDyeColor.values())
-			dyes[i] = color.getName();
-
 		addShapedRecipe(new ShapedOreRecipe(new ItemStack(FairExchangeMain.amuletTrade, 1), " y ", "yzy", " y ", 'y', "gemEmerald", 'z', "ingotGold"));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.DIAMOND, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.EMERALD, 1), "ingotGold", "ingotGold", "ingotGold", "ingotGold", "ingotGold",
 				"ingotGold", "ingotGold", "ingotGold", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.NETHER_STAR, 1), "blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald",
 				"blockEmerald", "blockEmerald", "blockEmerald", "blockEmerald", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 4), "gemDiamond", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 8), "gemEmerald", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.GOLD_INGOT, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron",
 				"ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 8), Items.GOLD_INGOT, AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.ENDER_PEARL, 1), "ingotIron", "ingotIron", "ingotIron", "ingotIron",
 				AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 4), Items.ENDER_PEARL, AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.QUARTZ, 5), "ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 3), Items.QUARTZ, Items.QUARTZ, Items.QUARTZ, Items.QUARTZ, Items.QUARTZ,
 				AMULET_STACK));
 
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.REDSTONE, 2), "coal", "coal", AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.QUARTZ, 2), Items.REDSTONE, Items.REDSTONE, AMULET_STACK));
-
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.OBSIDIAN, 1), AMULET_STACK, "ingotIron", Blocks.REDSTONE_BLOCK));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.BLAZE_ROD, 1), AMULET_STACK, Items.BLAZE_POWDER, Items.BLAZE_POWDER));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.GRASS, 1), AMULET_STACK, Blocks.COBBLESTONE));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 1), AMULET_STACK, Blocks.OBSIDIAN, Blocks.OBSIDIAN, Blocks.OBSIDIAN, Blocks.OBSIDIAN));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.GRAVEL, 1), AMULET_STACK, Blocks.DIRT, Blocks.DIRT, Blocks.DIRT, Blocks.DIRT));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.DIRT, 4), AMULET_STACK, Blocks.GRAVEL));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.DIRT, 1), AMULET_STACK, Blocks.SAND));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.COBBLESTONE, 1), AMULET_STACK, Blocks.DIRT));
 
-
-		// if (ModsLoadedHelper.tcLoaded) TiCRecipeIntegration.ticInit();
-		// if (ModsLoadedHelper.ic2Loaded) IC2RecipeIntegration.ic2Init();
 
 		ModdedManager.initModdedEntries();
 
 		// Add dyes last, as they are the most spammy.
+
+		int i = 0;
+		for (EnumDyeColor color : EnumDyeColor.values())
+			dyes[i++] = color.getName();
+
 		addDyes();
 	}
 
@@ -142,27 +130,85 @@ public final class CraftingManager {
 		private ModdedManager() {}
 
 		static void initModdedEntries() {
+
 			final ItemStack tinIngot = !OreDictionary.getOres("ingotTin").isEmpty() ?
-					OreDictionary.getOres("ingotTin").get(0) : null;
+					OreDictionary.getOres("ingotTin").get(0).copy() : null;
 
 			final ItemStack copperIngot = !OreDictionary.getOres("ingotCopper").isEmpty() ?
-					OreDictionary.getOres("ingotCopper").get(0) : null;
+					OreDictionary.getOres("ingotCopper").get(0).copy() : null;
 
 			final ItemStack bronzeIngot = !OreDictionary.getOres("ingotBronze").isEmpty() ?
-					OreDictionary.getOres("ingotBronze").get(0) : null;
+					OreDictionary.getOres("ingotBronze").get(0).copy() : null;
 
-			if (tinIngot != null)
-				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(tinIngot.getItem(), 3),
-						"ingotCopper", "ingotCopper", "ingotCopper", AMULET_STACK));
+			final ItemStack aluminiumIngot = !OreDictionary.getOres("aluminiumIngot").isEmpty() ?
+					OreDictionary.getOres("aluminiumIngot").get(0).copy() : null;
 
-			if (copperIngot != null)
-				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(copperIngot.getItem(), 1), "ingotTin", AMULET_STACK));
+			final ItemStack alumiteIngot = !OreDictionary.getOres("alumiteIngot").isEmpty() ?
+					OreDictionary.getOres("alumiteIngot").get(0).copy() : null;
+
+			final ItemStack cobaltIngot = !OreDictionary.getOres("cobaltIngot").isEmpty() ?
+					OreDictionary.getOres("cobaltIngot").get(0).copy() : null;
+
+			final ItemStack arditeIngot = !OreDictionary.getOres("arditeIngot").isEmpty() ?
+					OreDictionary.getOres("arditeIngot").get(0).copy() : null;
+
+			final ItemStack manyullynIngot = !OreDictionary.getOres("manyullynIngot").isEmpty() ?
+					OreDictionary.getOres("manyullynIngot").get(0).copy() : null;
+
+			final ItemStack certusQuartz = !OreDictionary.getOres("crystalCertusQuartz").isEmpty() ?
+					OreDictionary.getOres("crystalCertusQuartz").get(0).copy() : null;
+
+			if (tinIngot != null) {
+				tinIngot.stackSize = 3;
+				addShapelessRecipe(new ShapelessOreRecipe(tinIngot, "ingotCopper", "ingotCopper", "ingotCopper", AMULET_STACK));
+				addShapelessRecipe(new ShapelessOreRecipe(tinIngot, "aluminiumIngot", AMULET_STACK));
+			}
+
+			if (copperIngot != null) {
+				copperIngot.stackSize = 1;
+
+				addShapelessRecipe(new ShapelessOreRecipe(copperIngot, "ingotTin", AMULET_STACK));
+			}
 
 
-			if (bronzeIngot != null)
-				addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(bronzeIngot.getItem(), 4), "ingotCopper",
-						"ingotCopper", "ingotCopper", "ingotTin", AMULET_STACK));
+			if (bronzeIngot != null) {
+				bronzeIngot.stackSize = 4;
 
+				addShapelessRecipe(new ShapelessOreRecipe(bronzeIngot, "ingotCopper", "ingotCopper", "ingotCopper", "ingotTin", AMULET_STACK));
+			}
+
+			if (aluminiumIngot != null) {
+				aluminiumIngot.stackSize = 1;
+				addShapelessRecipe(new ShapelessOreRecipe(aluminiumIngot, "ingotTin", "ingotTin", "ingotTin", AMULET_STACK));
+			}
+
+			if (manyullynIngot != null) {
+				manyullynIngot.stackSize = 1;
+				addShapelessRecipe(new ShapelessOreRecipe(manyullynIngot, "cobaltIngot", "cobaltIngot", "arditeIngot", "arditeIngot", AMULET_STACK));
+			}
+
+			if (arditeIngot != null) {
+				arditeIngot.stackSize = 1;
+				addShapelessRecipe(new ShapelessOreRecipe(arditeIngot, "alumiteIngot", "alumiteIngot", "alumiteIngot", AMULET_STACK));
+
+				arditeIngot.stackSize = 3;
+				addShapelessRecipe(new ShapelessOreRecipe(arditeIngot, "cobaltIngot", AMULET_STACK));
+			}
+
+			if (cobaltIngot != null) {
+				cobaltIngot.stackSize = 1;
+				addShapelessRecipe(new ShapelessOreRecipe(cobaltIngot, "arditeIngot", "arditeIngot", "arditeIngot", AMULET_STACK));
+			}
+
+			if (alumiteIngot != null) {
+				alumiteIngot.stackSize = 3;
+				addShapelessRecipe(new ShapelessOreRecipe(alumiteIngot, "arditeIngot", AMULET_STACK));
+			}
+
+			if (certusQuartz != null) {
+				certusQuartz.stackSize = 5;
+				addShapelessRecipe(new ShapelessOreRecipe(certusQuartz, "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", AMULET_STACK));
+			}
 		}
 	}
 
