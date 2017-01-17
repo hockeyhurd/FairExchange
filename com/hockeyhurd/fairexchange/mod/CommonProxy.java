@@ -1,7 +1,6 @@
 package com.hockeyhurd.fairexchange.mod;
 
 import com.hockeyhurd.fairexchange.mod.container.TileUnifier;
-import com.hockeyhurd.fairexchange.mod.handler.CraftingEventHandler;
 import com.hockeyhurd.fairexchange.mod.handler.GuiHandler;
 import com.hockeyhurd.fairexchange.mod.handler.OreDictionaryRegisterHandler;
 import com.hockeyhurd.fairexchange.mod.manager.CraftingManager;
@@ -16,7 +15,6 @@ import com.hockeyhurd.hcorelib.api.util.interfaces.IProxy;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -65,7 +63,7 @@ public class CommonProxy implements IProxy {
 	@Override
 	public void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new OreDictionaryRegisterHandler());
-		FMLCommonHandler.instance().bus().register(new CraftingEventHandler());
+		// FMLCommonHandler.instance().bus().register(new CraftingEventHandler());
 	}
 
 	protected void registerBlocks() {
