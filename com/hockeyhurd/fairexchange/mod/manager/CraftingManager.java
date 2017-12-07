@@ -44,7 +44,7 @@ public final class CraftingManager {
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.REDSTONE, 2), "coal", "coal", AMULET_STACK));
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.QUARTZ, 2), Items.REDSTONE, Items.REDSTONE, AMULET_STACK));
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.OBSIDIAN, 1), AMULET_STACK, "ingotIron", Blocks.REDSTONE_BLOCK));
-		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.BLAZE_ROD, 1), AMULET_STACK, Items.BLAZE_POWDER, Items.BLAZE_POWDER));
+		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.BLAZE_ROD, 1), AMULET_STACK, Items.BLAZE_POWDER, Items.BLAZE_POWDER, Items.BLAZE_POWDER, Items.BLAZE_POWDER, Items.BLAZE_POWDER));
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.GRASS, 1), AMULET_STACK, Blocks.COBBLESTONE));
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Items.IRON_INGOT, 1), AMULET_STACK, Blocks.OBSIDIAN, Blocks.OBSIDIAN, Blocks.OBSIDIAN, Blocks.OBSIDIAN));
 		addShapelessRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.GRAVEL, 1), AMULET_STACK, Blocks.DIRT, Blocks.DIRT, Blocks.DIRT, Blocks.DIRT));

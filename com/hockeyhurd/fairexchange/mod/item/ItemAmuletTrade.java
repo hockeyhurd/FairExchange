@@ -24,7 +24,8 @@ public class ItemAmuletTrade extends AbstractHCoreItem {
 
 	@Override
 	public ItemStack getContainerItem(ItemStack stack) {
-		if (stack == null || stack.stackSize <= 0) return null;
+		if (stack == null || stack.stackSize <= 0)
+			return null;
 
 		return stack.copy();
 	}

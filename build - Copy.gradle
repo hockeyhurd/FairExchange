@@ -23,11 +23,11 @@ sourceSets {
     }
 }
 
-version = "1.2.1"
+version = "1.2.2"
 group= "com.hockeyhurd" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "FairExchange"
 minecraft {
-    version = "1.10.2-12.18.3.2185"
+    version = "1.10.2-12.18.3.2511"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.

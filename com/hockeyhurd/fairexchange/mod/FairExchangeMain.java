@@ -85,7 +85,7 @@ public class FairExchangeMain implements IForgeMod {
 		logHelper.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 	
-	private void loadObj() {
+	private static void loadObj() {
 		amuletTrade = new ItemAmuletTrade("amuletTrade", assetDir);
 
 		unifier = new BlockUnifier(Material.ROCK, "unifier");
