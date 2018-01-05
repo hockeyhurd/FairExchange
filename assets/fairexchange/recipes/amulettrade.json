@@ -1,0 +1,24 @@
+{
+  "group": "fairexchange:amulettrade",
+  "key": {
+    "e": {
+      "ore": "gemEmerald",
+      "type": "forge:ore_dict"
+    },
+    "g": {
+      "ore": "ingotGold",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    " e ",
+    "ege",
+    " e "
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "fairexchange:amulettrade"
+  },
+  "type": "minecraft:crafting_shaped"
+}

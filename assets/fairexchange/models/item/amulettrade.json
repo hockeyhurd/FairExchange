@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "fairexchange:items/amuletTrade"
+    "layer0": "fairexchange:items/amulettrade"
   }
 }

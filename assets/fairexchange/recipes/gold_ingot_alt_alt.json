@@ -1,0 +1,24 @@
+{
+  "group": "minecraft:gold_ingot",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    "iii",
+    "iii",
+    "aii"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:gold_ingot"
+  },
+  "type": "minecraft:crafting_shaped"
+}

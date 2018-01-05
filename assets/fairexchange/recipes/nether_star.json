@@ -1,0 +1,24 @@
+{
+  "group": "minecraft:nether_star",
+  "key": {
+    "a": {
+	  "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "e": {
+      "ore": "blockEmerald",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    "eee",
+    "eee",
+    "aee"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:nether_star"
+  },
+  "type": "minecraft:crafting_shaped"
+}

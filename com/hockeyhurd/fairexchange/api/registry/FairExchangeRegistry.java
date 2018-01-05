@@ -1,7 +1,6 @@
 package com.hockeyhurd.fairexchange.api.registry;
 
-import com.hockeyhurd.fairexchange.mod.registry.BlockRegistry;
-import com.hockeyhurd.fairexchange.mod.registry.ItemRegistry;
+import com.hockeyhurd.fairexchange.mod.registry.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -17,11 +16,11 @@ public final class FairExchangeRegistry {
     }
 
     public static Item getItemByName(String name) {
-        return ItemRegistry.getInstance().getItemByName(name);
+        return ModRegistry.ModItems.getItemByName(name);
     }
 
     public static Block getBlockByName(String name) {
-        return BlockRegistry.getInstance().getBlockByName(name);
+        return ModRegistry.ModBlocks.getBlockByName(name);
     }
 
 }

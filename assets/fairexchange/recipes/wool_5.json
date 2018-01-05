@@ -1,0 +1,18 @@
+{
+  "ingredients": [
+    {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    {
+      "data": 4,
+      "item": "minecraft:wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "data": 5,
+    "item": "minecraft:wool"
+  },
+  "type": "minecraft:crafting_shapeless"
+}

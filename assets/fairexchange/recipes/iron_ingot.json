@@ -1,0 +1,18 @@
+{
+  "ingredients": [
+    {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    {
+      "ore": "ingotGold",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "data": 0,
+    "item": "minecraft:iron_ingot"
+  },
+  "type": "minecraft:crafting_shapeless"
+}

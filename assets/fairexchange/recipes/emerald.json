@@ -1,0 +1,24 @@
+{
+  "group": "minecraft:emerald",
+  "key": {
+    "a": {
+	  "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "g": {
+      "ore": "ingotGold",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "ggg",
+    "agg"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:emerald"
+  },
+  "type": "minecraft:crafting_shaped"
+}

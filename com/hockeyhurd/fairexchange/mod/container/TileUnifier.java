@@ -3,6 +3,7 @@ package com.hockeyhurd.fairexchange.mod.container;
 import com.hockeyhurd.hcorelib.api.util.OreDictParser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class TileUnifier extends AbstractTileISided {
 
 	@Override
 	protected void initSlots() {
-		this.slots = new ItemStack[9 * 2 + 1];
+		slots = NonNullList.<ItemStack>withSize(9 * 2 + 1, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -63,15 +64,15 @@ public class TileUnifier extends AbstractTileISided {
 	@Override
 	public void update() {
 
-		if (!worldObj.isRemote && worldObj.getTotalWorldTime() % 5L == 0) {
+		if (!world.isRemote && world.getTotalWorldTime() % 5L == 0) {
 
 			ItemStack srcSlot = getStackInSlot(0);
-			if (srcSlot != null && srcSlot.stackSize > 0) {
+			if (srcSlot != null && srcSlot.getCount() > 0) {
 
 				if (lastTickStack == null || !srcSlot.isItemEqual(lastTickStack)) {
 					lastTickStack = srcSlot;
 
-					List<ItemStack> oreDictStacks = OreDictParser.getFromOreDict(OreDictParser.getOreDictName(srcSlot), srcSlot.stackSize);
+					List<ItemStack> oreDictStacks = OreDictParser.getFromOreDict(OreDictParser.getOreDictName(srcSlot), srcSlot.getCount());
 
 					if (oreDictStacks != null && !oreDictStacks.isEmpty()) {
 						final int maxLim = Math.min(getSizeInventory() - 1, oreDictStacks.size());
@@ -90,15 +91,19 @@ public class TileUnifier extends AbstractTileISided {
 					for (int i = 1; i < getSizeInventory(); i++) {
 						current = getStackInSlot(i);
 						if (current != null) {
-							min = Math.min(current.stackSize, srcSlot.stackSize);
-							current.stackSize = srcSlot.stackSize;
-							if (current.stackSize == 0) current = null;
+							min = Math.min(current.getCount(), srcSlot.getCount());
+							current.setCount(srcSlot.getCount());
+
+							if (current.getCount() == 0)
+								current = ItemStack.EMPTY;
 						}
 					}
 
-					if (srcSlot.stackSize != min) {
-						srcSlot.stackSize = min;
-						if (min == 0) srcSlot = null;
+					if (srcSlot.getCount() != min) {
+						srcSlot.setCount(min);
+
+						if (min == 0)
+						    srcSlot = ItemStack.EMPTY;
 					}
 				}
 
@@ -108,7 +113,7 @@ public class TileUnifier extends AbstractTileISided {
 				lastTickStack = null;
 
 				for (int i = 1; i < getSizeInventory(); i++) {
-					setInventorySlotContents(i, null);
+					setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 			}
 

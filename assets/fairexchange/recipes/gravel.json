@@ -1,0 +1,23 @@
+{
+  "group": "minecraft:gravel",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "d": {
+      "data": 32767,
+      "item": "minecraft:dirt"
+    }
+  },
+  "pattern": [
+    "ddd",
+    "da "
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:gravel"
+  },
+  "type": "minecraft:crafting_shaped"
+}

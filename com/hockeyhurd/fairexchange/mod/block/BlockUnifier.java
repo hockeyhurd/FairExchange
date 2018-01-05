@@ -18,54 +18,56 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
 public class BlockUnifier extends AbstractHCoreBlockContainer {
 
-	private final String name;
+    private final String name;
 
-	public BlockUnifier(Material material, String name) {
-		super(material, FairExchangeMain.myCreativeTab, FairExchangeMain.assetDir, name);
+    public BlockUnifier(Material material, String name) {
+        super(material, FairExchangeMain.myCreativeTab, FairExchangeMain.assetDir, name);
 
-		this.name = name;
-	}
+        this.name = name;
+    }
 
-	@Override
-	public Block getBlock() {
-		return this;
-	}
+    @Override
+    public Block getBlock() {
+        return this;
+    }
 
-	@Override
-	public float getBlockHardness() {
-		return 1.0f;
-	}
+    @Override
+    public float getBlockHardness() {
+        return 1.0f;
+    }
 
-	@Override
-	public EnumHarvestLevel getHarvestLevel() {
-		return EnumHarvestLevel.PICKAXE_WOOD;
-	}
+    @Override
+    public EnumHarvestLevel getHarvestLevel() {
+        return EnumHarvestLevel.PICKAXE_WOOD;
+    }
 
-	@Override
-	public TileUnifier getTileEntity() {
-		return new TileUnifier();
-	}
+    @Override
+    public TileUnifier getTileEntity() {
+        return new TileUnifier();
+    }
 
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase placer, ItemStack stack) {
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos blockPos, IBlockState blockState, EntityLivingBase placer, ItemStack stack) {
 
-	}
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player, EnumHand hand,
-			ItemStack stack, EnumFacing sideHit, float hitX, float hitY, float hitZ) {
-		if (world.isRemote) return true;
+    @Override
+    public boolean onBlockActivated(World world, BlockPos blockPos, IBlockState blockState, EntityPlayer player, EnumHand hand, EnumFacing sideHit,
+            float hitX, float hitY, float hitZ) {
 
-		else {
-			TileUnifier te = (TileUnifier) world.getTileEntity(blockPos);
+        if (world.isRemote)
+            return true;
 
-			if (te != null) {
-				FMLNetworkHandler.openGui(player, FairExchangeMain.instance, 0, world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-				return true;
-			}
+        else {
+            TileUnifier te = (TileUnifier) world.getTileEntity(blockPos);
 
-			return false;
-		}
-	}
+            if (te != null) {
+                FMLNetworkHandler.openGui(player, FairExchangeMain.instance, 0, world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                return true;
+            }
+
+            return false;
+        }
+    }
 
 }

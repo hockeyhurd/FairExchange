@@ -1,0 +1,24 @@
+{
+  "group": "minecraft:diamond",
+  "key": {
+    "g": {
+      "ore": "ingotGold",
+      "type": "forge:ore_dict"
+    },
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    }
+  },
+  "pattern": [
+    "gg ",
+    "gg ",
+    "a  "
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:diamond"
+  },
+  "type": "minecraft:crafting_shaped"
+}

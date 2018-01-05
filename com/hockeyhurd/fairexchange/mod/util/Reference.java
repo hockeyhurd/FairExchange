@@ -8,7 +8,7 @@ public class Reference extends AbstractReference {
 	public static final short BUILD = 1;
 
 	/** Current Subversion */
-	public static final int SUB_VERSION = 2;
+	public static final int SUB_VERSION = 3;
 
 	/** Current major version. */
 	public static final int MAJOR_VERSION = 1;
@@ -19,8 +19,10 @@ public class Reference extends AbstractReference {
 	/** Current mod name. */
 	public static final String MOD_NAME = "FairExchange";
 
+	public static final String MOD_ID = "fairexchange";
+
 	/** Current Minecraft version. */
-	public static final String MINECRAFT_VERSION = "[1.10.2]";
+	public static final String MINECRAFT_VERSION = "[1.12.2]";
 	
 	/** Not required but is available. NOTE: if not using it, set to null! */
 	// public static final String MOD_URL = "http://75.68.113.97:8080/downloads/" + MOD_NAME.toLowerCase() + "/versions/FairExchange-1.1.";

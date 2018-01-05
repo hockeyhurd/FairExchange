@@ -1,8 +1,8 @@
 package com.hockeyhurd.fairexchange.mod.creativetab;
 
-import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
+import com.hockeyhurd.fairexchange.mod.registry.ModRegistry;
 import com.hockeyhurd.hcorelib.api.creativetab.AbstractCreativeTab;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -13,8 +13,8 @@ public class FairExchangeCreativeTab extends AbstractCreativeTab {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem() {
-		return FairExchangeMain.amuletTrade;
+	public ItemStack getTabIconItem() {
+		return new ItemStack(ModRegistry.ModItems.amuletTrade.getItem().getItem(), 1);
 	}
 
 }

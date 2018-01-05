@@ -1,0 +1,22 @@
+{
+  "group": "minecraft:blaze_rod",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "p": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "pattern": [
+    "ppp",
+    "ppa"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:blaze_rod"
+  },
+  "type": "minecraft:crafting_shaped"
+}

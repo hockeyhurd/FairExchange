@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 
 /**
  * General purpose class for creating tile entities that contain an inventory
@@ -18,7 +19,7 @@ import net.minecraft.util.ITickable;
  */
 public abstract class AbstractTileISided extends AbstractTile implements ISidedInventory, ITickable {
 
-	protected ItemStack[] slots;
+	protected NonNullList<ItemStack> slots;
 
 	public AbstractTileISided() {
 		this("container.iSided");
@@ -36,29 +37,50 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	 */
 	protected abstract void initSlots();
 
+    protected boolean isInventoryEmpty() {
+        for (ItemStack stack : slots) {
+            if (!stack.isEmpty())
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return isInventoryEmpty();
+    }
+
+    @Override
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return true;
+    }
+
 	@Override
 	public void readNBT(NBTTagCompound comp) {
-		slots = new ItemStack[getSizeInventory()];
+		slots = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
+
 		NBTTagList tagList = comp.getTagList("Items", 10);
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound temp = tagList.getCompoundTagAt(i);
 			byte b0 = temp.getByte("Slot");
 
-			if (b0 >= 0 && b0 < slots.length) slots[b0] = ItemStack.loadItemStackFromNBT(temp);
+			if (b0 >= 0 && b0 < slots.size())
+				slots.set(b0, new ItemStack(temp));
 		}
 	}
 
 	@Override
 	public void saveNBT(NBTTagCompound comp) {
-		if (slots != null && slots.length > 0) {
+		if (slots != null) {
 			NBTTagList tagList = comp.getTagList("Items", 10);
 
-			for (int i = 0; i < slots.length; i++) {
-				if (slots[i] != null) {
+			for (int i = 0; i < slots.size(); i++) {
+				if (slots.get(i) != ItemStack.EMPTY) {
 					NBTTagCompound temp = new NBTTagCompound();
 					temp.setByte("Slot", (byte) i);
-					slots[i].writeToNBT(comp);
+					slots.get(i).writeToNBT(comp);
 					tagList.appendTag(temp);
 				}
 			}
@@ -87,27 +109,28 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 
 	@Override
 	public int getSizeInventory() {
-		return slots.length;
+		return slots.size();
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return slots != null && slots.length > 0 ? slots[slot] : null;
+		return slots != null ? slots.get(slot) : null;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int amount) {
-		if (slots != null && slots.length > 0) {
+		if (slots != null) {
 			ItemStack ret;
 
-			if (slots[slot].stackSize <= amount) {
-				ret = slots[slot];
-				slots[slot] = null;
+			if (slots.get(slot).getCount() <= amount) {
+				ret = slots.get(slot);
+				slots.set(slot, ItemStack.EMPTY);
 			}
 
 			else {
-				ret = slots[slot].splitStack(amount);
-				if (slots[slot].stackSize <= 0) slots[slot] = null;
+				ret = slots.get(slot).splitStack(amount);
+				if (slots.get(slot).getCount() <= 0)
+                    slots.set(slot, ItemStack.EMPTY);
 			}
 
 			return ret;
@@ -118,12 +141,15 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		slots[slot] = stack;
-		if (stack != null) {
-			int minMaxSize = Math.min(getInventoryStackLimit(), stack.stackSize);
+		slots.set(slot, stack);
 
-			if (stack.stackSize <= 0) slots[slot] = null;
-			else if (stack.stackSize > minMaxSize) slots[slot].stackSize = minMaxSize;
+		if (stack != ItemStack.EMPTY) {
+			int minMaxSize = Math.min(getInventoryStackLimit(), stack.getCount());
+
+			if (stack.getCount() <= 0)
+			    slots.set(slot, ItemStack.EMPTY);
+			else if (stack.getCount() > minMaxSize)
+			    slots.get(slot).setCount(minMaxSize);
 		}
 	}
 
@@ -135,11 +161,6 @@ public abstract class AbstractTileISided extends AbstractTile implements ISidedI
 	@Override
 	public int getInventoryStackLimit() {
 		return 0x40;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return true;
 	}
 
 }

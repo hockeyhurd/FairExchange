@@ -1,0 +1,22 @@
+{
+  "group": "minecraft:iron_ingot",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "o": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "oo ",
+    "ooa"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:iron_ingot"
+  },
+  "type": "minecraft:crafting_shaped"
+}

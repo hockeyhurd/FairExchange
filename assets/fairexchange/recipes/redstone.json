@@ -1,0 +1,22 @@
+{
+  "group": "minecraft:redstone",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "c": {
+      "item": "minecraft:coal",
+      "data": 0
+    }
+  },
+  "pattern": [
+    "cca"
+  ],
+  "result": {
+    "count": 2,
+    "data": 0,
+    "item": "minecraft:redstone"
+  },
+  "type": "minecraft:crafting_shaped"
+}

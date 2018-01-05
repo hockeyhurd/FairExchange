@@ -1,0 +1,21 @@
+{
+  "group": "minecraft:grass",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "c": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "pattern": [
+    "ca"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:grass"
+  },
+  "type": "minecraft:crafting_shaped"
+}

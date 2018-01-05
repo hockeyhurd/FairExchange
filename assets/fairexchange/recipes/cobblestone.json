@@ -1,0 +1,22 @@
+{
+  "group": "minecraft:cobblestone",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "d": {
+      "data": 32767,
+      "item": "minecraft:dirt"
+    }
+  },
+  "pattern": [
+    "da"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:cobblestone"
+  },
+  "type": "minecraft:crafting_shaped"
+}

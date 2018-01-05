@@ -1,0 +1,22 @@
+{
+  "group": "minecraft:dirt",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "s": {
+      "data": 32767,
+      "item": "minecraft:sand"
+    }
+  },
+  "pattern": [
+    "sa"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:dirt"
+  },
+  "type": "minecraft:crafting_shaped"
+}

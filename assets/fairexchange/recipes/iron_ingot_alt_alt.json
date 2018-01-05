@@ -1,0 +1,23 @@
+{
+  "group": "minecraft:iron_ingot",
+  "key": {
+    "a": {
+	  "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "q": {
+      "ore": "gemQuartz",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    "qqq",
+    "qqa"
+  ],
+  "result": {
+    "count": 3,
+    "data": 0,
+    "item": "minecraft:iron_ingot"
+  },
+  "type": "minecraft:crafting_shaped"
+}

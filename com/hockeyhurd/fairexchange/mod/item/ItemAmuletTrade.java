@@ -1,46 +1,64 @@
 package com.hockeyhurd.fairexchange.mod.item;
 
 import com.hockeyhurd.fairexchange.mod.FairExchangeMain;
+import com.hockeyhurd.hcorelib.api.handler.RecipePattern;
 import com.hockeyhurd.hcorelib.api.item.AbstractHCoreItem;
-import net.minecraft.entity.player.EntityPlayer;
+import com.hockeyhurd.hcorelib.api.util.interfaces.ICraftableRecipe;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemAmuletTrade extends AbstractHCoreItem {
+public class ItemAmuletTrade extends AbstractHCoreItem implements ICraftableRecipe {
 
-	public ItemAmuletTrade(String name, String assetDir) {
-		super(FairExchangeMain.myCreativeTab, assetDir, name);
-		setMaxStackSize(1);
-	}
+    private static RecipePattern[] recipes;
 
-	@Override
-	public boolean hasContainerItem() {
-		return true;
-	}
+    public ItemAmuletTrade(String name, String assetDir) {
+        super(FairExchangeMain.myCreativeTab, assetDir, name);
 
-	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
-		if (stack == null || stack.stackSize <= 0)
-			return null;
+        setMaxStackSize(1);
+    }
 
-		return stack.copy();
-	}
+    @Override
+    public boolean hasContainerItem() {
+        return true;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-		return true;
-	}
+    @Override
+    public ItemStack getContainerItem(ItemStack stack) {
+        if (stack.getCount() <= 0)
+            return null;
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-		list.add(TextFormatting.GREEN + "Ability: " + TextFormatting.GRAY + "Allows for trading resources");
-		list.add(TextFormatting.GRAY + "into other useful resources.");
-	}
+        return stack.copy();
+    }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> list, ITooltipFlag flag) {
+        list.add(TextFormatting.GREEN + "Ability: " + TextFormatting.GRAY + "Allows for trading resources");
+        list.add(TextFormatting.GRAY + "into other useful resources.");
+    }
+
+    @Override
+    public RecipePattern[] getRecipePatterns() {
+        if (recipes == null) {
+            recipes = new RecipePattern[1];
+
+            recipes[0] = new RecipePattern(" e ", "ege", " e ", true).addAssociation('e', "gemEmerald").addAssociation('g',
+                    "ingotGold").setResultStack(new ItemStack(this, 1));
+        }
+
+        return recipes;
+    }
 }

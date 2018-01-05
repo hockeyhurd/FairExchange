@@ -1,0 +1,18 @@
+{
+  "ingredients": [
+    {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    {
+	  "data": 9,
+      "item": "minecraft:dye"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "data": 10,
+    "item": "minecraft:dye"
+  },
+  "type": "minecraft:crafting_shapeless"
+}

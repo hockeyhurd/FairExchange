@@ -1,0 +1,26 @@
+{
+  "group": "minecraft:obsidian",
+  "key": {
+    "a": {
+      "data": 32767,
+      "item": "fairexchange:amulettrade"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    },
+    "r": {
+      "ore": "blockRedstone",
+      "type": "forge:ore_dict"
+    }
+  },
+  "pattern": [
+    "ira"
+  ],
+  "result": {
+    "count": 1,
+    "data": 0,
+    "item": "minecraft:obsidian"
+  },
+  "type": "minecraft:crafting_shaped"
+}
