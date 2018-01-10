@@ -3,6 +3,7 @@ package com.hockeyhurd.fairexchange.mod;
 import com.hockeyhurd.fairexchange.mod.container.TileUnifier;
 import com.hockeyhurd.fairexchange.mod.handler.GuiHandler;
 import com.hockeyhurd.fairexchange.mod.manager.CraftingManager;
+import com.hockeyhurd.fairexchange.mod.registry.ModOreDictionary;
 import com.hockeyhurd.fairexchange.mod.registry.ModRegistry;
 import com.hockeyhurd.fairexchange.mod.util.Reference;
 import com.hockeyhurd.hcorelib.api.handler.NotifyPlayerOnJoinHandler;
@@ -61,6 +62,7 @@ public class CommonProxy implements IProxy {
 
     @Override
     public void postInit() {
+        ModOreDictionary.getInstance().init();
         registerUpdateHandler();
     }
 
