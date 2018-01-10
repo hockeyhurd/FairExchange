@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ItemAmuletTrade extends AbstractHCoreItem implements ICraftableReci
         super(FairExchangeMain.myCreativeTab, assetDir, name);
 
         setMaxStackSize(1);
+        setMaxDamage(1000);
     }
 
     @Override
@@ -30,10 +32,17 @@ public class ItemAmuletTrade extends AbstractHCoreItem implements ICraftableReci
     }
 
     @Override
+    @Nonnull
     public ItemStack getContainerItem(ItemStack stack) {
         if (stack.getCount() <= 0)
-            return null;
+            return ItemStack.EMPTY;
 
+        final int damage = stack.getItemDamage() + 1;
+
+        if (damage >= stack.getMaxDamage())
+            return ItemStack.EMPTY;
+
+        stack.setItemDamage(damage);
         return stack.copy();
     }
 
@@ -48,6 +57,7 @@ public class ItemAmuletTrade extends AbstractHCoreItem implements ICraftableReci
     public void addInformation(ItemStack stack, @Nullable World world, List<String> list, ITooltipFlag flag) {
         list.add(TextFormatting.GREEN + "Ability: " + TextFormatting.GRAY + "Allows for trading resources");
         list.add(TextFormatting.GRAY + "into other useful resources.");
+        list.add(TextFormatting.BLUE + "Uses left: " + TextFormatting.GRAY + (stack.getMaxDamage() - stack.getItemDamage()));
     }
 
     @Override
