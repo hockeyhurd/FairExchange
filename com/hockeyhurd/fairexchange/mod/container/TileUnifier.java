@@ -1,135 +1,108 @@
 package com.hockeyhurd.fairexchange.mod.container;
 
-import com.hockeyhurd.hcorelib.api.util.OreDictParser;
+import com.hockeyhurd.fairexchange.mod.registry.ModOreDictionary;
+import com.hockeyhurd.hcorelib.api.tileentity.AbstractTileContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
-
-import java.util.List;
 
 /**
  * @author hockeyhurd
  * @version 7/26/2015.
  */
-public class TileUnifier extends AbstractTileISided {
+public class TileUnifier extends AbstractTileContainer implements ITickable {
 
-	private ItemStack lastTickStack;
+    private static final ModOreDictionary MOD_ORE_DICTIONARY = ModOreDictionary.getInstance();
+    private static final int[] slotIndicies = { 0 };
+    private ItemStack lastTickStack;
 
-	public TileUnifier() {
-		super("TileUnifier");
-	}
+    public TileUnifier() {
+        super("TileUnifier");
+    }
 
-	@Override
-	protected void initSlots() {
-		slots = NonNullList.<ItemStack>withSize(9 * 2 + 1, ItemStack.EMPTY);
-	}
+    @Override
+    protected void initSlotsArray() {
+        slots = NonNullList.<ItemStack>withSize(12 * 6 + 1, ItemStack.EMPTY);
+    }
 
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		return null;
-	}
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
 
-	@Override
-	public void openInventory(EntityPlayer player) {
-	}
+    @Override
+    public void openInventory(EntityPlayer player) {
+    }
 
-	@Override
-	public void closeInventory(EntityPlayer player) {
-	}
+    @Override
+    public void closeInventory(EntityPlayer player) {
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return true;
-	}
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
 
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
+    @Override
+    public void setField(int id, int value) {
 
-	@Override
-	public void setField(int id, int value) {
+    }
 
-	}
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
 
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
+    @Override
+    public void clear() {
+    }
 
-	@Override
-	public void clear() {
-	}
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return slotIndicies;
+    }
 
-	@Override
-	public void update() {
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
+        return slot == 0;
+    }
 
-		if (!world.isRemote && world.getTotalWorldTime() % 5L == 0) {
+    @Override
+    public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
+        return isItemValidForSlot(slot, stack);
+    }
 
-			ItemStack srcSlot = getStackInSlot(0);
-			if (srcSlot != null && srcSlot.getCount() > 0) {
+    @Override
+    public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
+        return slot == 0;
+    }
 
-				if (lastTickStack == null || !srcSlot.isItemEqual(lastTickStack)) {
-					lastTickStack = srcSlot;
+    @Override
+    public void update() {
 
-					List<ItemStack> oreDictStacks = OreDictParser.getFromOreDict(OreDictParser.getOreDictName(srcSlot), srcSlot.getCount());
+        if (!world.isRemote && world.getTotalWorldTime() % 5L == 0) {
+            final ItemStack srcSlot = getStackInSlot(0);
 
-					if (oreDictStacks != null && !oreDictStacks.isEmpty()) {
-						final int maxLim = Math.min(getSizeInventory() - 1, oreDictStacks.size());
+            if (srcSlot != ItemStack.EMPTY) {
+                final NonNullList<ItemStack> oresByName = MOD_ORE_DICTIONARY.getOresByName(MOD_ORE_DICTIONARY.getOreName(srcSlot));
+                final int numElem = Math.min(oresByName.size(), getSizeInventory() - 1);
 
-						for (int i = 1; i < maxLim; i++) {
-							// slots[i] = oreDictStacks.get(i - 1).copy();
-							setInventorySlotContents(i, oreDictStacks.get(i - 1));
-						}
-					}
-				}
+                for (int i = 0; i < numElem; i++) {
+                    final ItemStack putStack = oresByName.get(i);
+                    putStack.setCount(srcSlot.getCount());
 
-				else {
-					ItemStack current;
-					int min = Integer.MAX_VALUE;
+                    setInventorySlotContents(i + 1, putStack);
+                }
+            }
 
-					for (int i = 1; i < getSizeInventory(); i++) {
-						current = getStackInSlot(i);
-						if (current != null) {
-							min = Math.min(current.getCount(), srcSlot.getCount());
-							current.setCount(srcSlot.getCount());
+            else {
+                for (int i = 1; i < getSizeInventory(); i++) {
+                    setInventorySlotContents(i, ItemStack.EMPTY);
+                }
+            }
+        }
 
-							if (current.getCount() == 0)
-								current = ItemStack.EMPTY;
-						}
-					}
-
-					if (srcSlot.getCount() != min) {
-						srcSlot.setCount(min);
-
-						if (min == 0)
-						    srcSlot = ItemStack.EMPTY;
-					}
-				}
-
-			}
-
-			else {
-				lastTickStack = null;
-
-				for (int i = 1; i < getSizeInventory(); i++) {
-					setInventorySlotContents(i, ItemStack.EMPTY);
-				}
-			}
-
-			lastTickStack = srcSlot;
-		}
-
-	}
-
-	@Override
-	public String getName() {
-		return getInventoryName();
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		final String name = getInventoryName();
-		return name != null && !name.isEmpty();
-	}
+    }
 }

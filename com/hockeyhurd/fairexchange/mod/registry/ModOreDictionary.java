@@ -109,4 +109,23 @@ public final class ModOreDictionary {
         return list;
     }
 
+    public String getOreName(@Nonnull final ItemStack stack) {
+        final String name = stack.getItem().getRegistryName().getResourcePath();
+
+        if (name.contains("ingot") || name.contains("nugget") || name.contains("ore") || name.contains("gem") ||
+                name.contains("quartz") || name.contains("dust")) {
+
+            for (Map.Entry<String, Map<ResourceLocation, ItemStack>> entry : oreMap.entrySet()) {
+                final Map<ResourceLocation, ItemStack> internalMap = entry.getValue();
+
+                for (ItemStack itemStack : internalMap.values()) {
+                    if (stack.isItemEqualIgnoreDurability(itemStack))
+                        return entry.getKey();
+                }
+            }
+        }
+
+        return name;
+    }
+
 }

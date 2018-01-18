@@ -25,12 +25,12 @@ public class GuiUnifier extends GuiBase {
 
 	@Override
 	public ResourceLocation getTexture() {
-		return new ResourceLocation("fairexchange", "textures/gui/GuiUnifier.png");
+		return new ResourceLocation("fairexchange", "textures/gui/gui_unifier.png");
 	}
 
 	@Override
 	public Vector2<Integer> getSizeVec() {
-		return new Vector2<Integer>(176, 180);
+		return new Vector2<Integer>(238, 256);
 	}
 
 }
